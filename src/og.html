@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>Xept og card</title>
+<style>
+/* Tokens lifted verbatim from index.html's dark block. Nothing invented. */
+:root{
+  --bg:#0D0F10;
+  --fg:#F1F2F2;
+  --muted:#A7ADB2;
+  --line:#272B2E;
+  --accent:#9DC3E8;
+  --wash:rgba(255,255,255,.055);
+  --shadow:0 1px 2px rgba(0,0,0,.5), 0 10px 26px rgba(0,0,0,.45);
+  --thumb-filter:brightness(.84) contrast(1.03);
+  --sans:"Inter","Noto Sans SC",-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+/* FONTS:BEGIN */
+@font-face{font-family:"Inter";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/inter-400.woff2") format("woff2")}
+@font-face{font-family:"Inter";font-style:normal;font-weight:500;font-display:swap;src:url("fonts/inter-500.woff2") format("woff2")}
+@font-face{font-family:"Inter";font-style:normal;font-weight:600;font-display:swap;src:url("fonts/inter-600.woff2") format("woff2")}
+@font-face{font-family:"Noto Sans SC";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/noto-sans-sc-400.woff2") format("woff2")}
+@font-face{font-family:"Noto Sans SC";font-style:normal;font-weight:500;font-display:swap;src:url("fonts/noto-sans-sc-500.woff2") format("woff2")}
+@font-face{font-family:"Noto Sans SC";font-style:normal;font-weight:600;font-display:swap;src:url("fonts/noto-sans-sc-600.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/ibm-plex-mono-400.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:500;font-display:swap;src:url("fonts/ibm-plex-mono-500.woff2") format("woff2")}
+/* FONTS:END */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  width:1200px;height:630px;overflow:hidden;
+  background:var(--bg);
+  background-image:radial-gradient(135% 115% at 102% 50%, var(--wash) 0%, rgba(0,0,0,0) 64%);
+  color:var(--fg);
+  font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;
+  display:grid;
+  grid-template-columns:570px 630px;
+  align-items:center;
+}
+.left{padding-left:72px;min-width:0}
+.brand{
+  font-family:var(--mono);
+  font-size:28px;
+  font-weight:500;
+  letter-spacing:.14em;
+  color:var(--accent);
+  margin:0 0 24px;
+  white-space:nowrap;
+}
+h1{
+  margin:0 0 28px;
+  font-size:120px;
+  line-height:1.05;
+  font-weight:600;
+  letter-spacing:-.015em;
+  white-space:nowrap;
+}
+.sub{
+  margin:0;
+  color:var(--muted);
+  font-size:28px;
+  line-height:1.45;
+  white-space:nowrap;
+}
+.sheets{position:relative;height:630px}
+.sheets img{
+  position:absolute;
+  width:260px;height:auto;
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+  filter:var(--thumb-filter);
+  background:#fff;
+  display:block;
+}
+.sheets img:nth-child(1){left:10px;top:120px;transform:rotate(-3deg)}
+.sheets img:nth-child(2){left:180px;top:152px;transform:rotate(1.5deg)}
+.sheets img:nth-child(3){left:350px;top:126px;transform:rotate(4deg)}
+</style>
+</head>
+<body>
+  <div class="left">
+    <p class="brand">XEPT</p>
+    <h1>伴你写作</h1>
+    <p class="sub">装在你电脑上的学术写作工具</p>
+  </div>
+  <div class="sheets">
+    <img src="assets/thesis-cover.jpg" alt="">
+    <img src="assets/journal-en-p1.jpg" alt="">
+    <img src="assets/grant-nsfc-p1.jpg" alt="">
+  </div>
+</body>
+</html>
