@@ -733,6 +733,52 @@ h1{
   .said{font-size:19px}
   .stage{height:122px}
 }
+/* ---------- 中 / EN ----------
+   Hidden until the script turns it on: with no script there is nothing to switch to. */
+.langsw{
+  display:none;
+  position:fixed;
+  top:calc(10px + env(safe-area-inset-top, 0px));
+  right:calc(10px + env(safe-area-inset-right, 0px));
+  z-index:40;                /* over the wall, under the lightbox (50) */
+  min-width:44px;
+  min-height:44px;
+  align-items:center;
+  justify-content:center;
+  padding:0 10px;
+  border:1px solid var(--line);
+  border-radius:3px;
+  background:var(--bg);
+  color:var(--muted);
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:.06em;
+  line-height:1;
+  cursor:pointer;
+}
+.langsw[data-on]{display:inline-flex}
+.langsw:hover,.langsw:focus-visible{color:var(--accent);border-color:var(--accent)}
+
+/* ---------- English fits ----------
+   Only ever live while the script has set lang="en" on the root element: Chinese is
+   untouched. English runs longer than Chinese, so the slogan, the typed sentence
+   and the letter get the measure they need to keep each screen one screen tall. */
+html[lang="en"] h1{font-size:clamp(30px,3.4vw,52px)}
+html[lang="en"] .sub{max-width:46ch}
+html[lang="en"] .said{font-size:clamp(17px,1.4vw,21px);max-width:40em}
+html[lang="en"] .lead{max-width:78ch}
+html[lang="en"] .lead--open{max-width:68ch}
+@media (max-width:1024px){
+  html[lang="en"] .said{font-size:16.5px}
+}
+@media (max-width:768px){
+  html[lang="en"] h1{font-size:clamp(26px,7vw,34px)}
+  html[lang="en"] .said{font-size:17px}
+}
+@media (max-width:560px){
+  html[lang="en"] .said{font-size:16px}
+}
 </style>
 <meta name="description" content="装在你电脑上的学术写作工具：把你的材料和数据，写成能交出去的 Word 或 LaTeX 稿。免费，开源，不需要注册。">
 <link rel="canonical" href="https://xept.online/">
@@ -757,35 +803,37 @@ h1{
 <body>
 
 
+<button type="button" class="langsw mono" id="langsw" lang="zh-CN" title="切换到 English" aria-label="切换到 English">中文</button>
+
 <main>
   <section class="screen" id="top" aria-labelledby="h1">
     <div class="shell">
       <div class="left">
         <header class="intro">
           <p class="brand mono">Xept</p>
-          <h1 id="h1">伴你写作</h1>
-          <p class="sub">装在你电脑上的学术写作工具：把你的材料和数据，写成能交出去的 Word 或 LaTeX 稿。</p>
-          <p class="sr-only">右侧滚动展示的是 Xept 真实写出来的文档的页面截图——学位论文、英文会议论文、期刊返修稿、国自然与 NSF 申请书、中英文学术简历、课程作业与实验报告、学术海报等，每一张下方标注了文体和格式。不是示意图，也不是软件界面。点击任意一张可以放大查看。</p>
+          <h1 id="h1" data-i18n="slogan">伴你写作</h1>
+          <p class="sub" data-i18n="sub">装在你电脑上的学术写作工具：把你的材料和数据，写成能交出去的 Word 或 LaTeX 稿。</p>
+          <p class="sr-only" data-i18n="wallSr">右侧滚动展示的是 Xept 真实写出来的文档的页面截图——学位论文、英文会议论文、期刊返修稿、国自然与 NSF 申请书、中英文学术简历、课程作业与实验报告、学术海报等，每一张下方标注了文体和格式。不是示意图，也不是软件界面。点击任意一张可以放大查看。</p>
         </header>
 
         <section class="getit">
-          <h2 class="sr-only">下载</h2>
+          <h2 class="sr-only" data-i18n="downloadHeading">下载</h2>
           <div class="dl" id="dl">
-            <a class="btn btn--primary" data-os="mac" rel="noopener" href="https://github.com/xept-ai/xept-desktop-releases/releases/download/v0.4.1/Xept-0.4.1-mac-arm64.dmg">下载 macOS 版</a>
-            <a class="btn" data-os="win" rel="noopener" href="https://github.com/xept-ai/xept-desktop-releases/releases/download/v0.4.1/Xept-0.4.1-win-x64-setup.exe">Windows</a>
-            <a class="btn" data-os="linux" rel="noopener" href="https://github.com/xept-ai/xept-desktop-releases/releases/download/v0.4.1/Xept-0.4.1-linux-x86_64.AppImage">Linux</a>
+            <a class="btn btn--primary" data-os="mac" data-i18n="btnMac" rel="noopener" href="https://github.com/xept-ai/xept-desktop-releases/releases/download/v0.4.1/Xept-0.4.1-mac-arm64.dmg">下载 macOS 版</a>
+            <a class="btn" data-os="win" data-i18n="btnWin" rel="noopener" href="https://github.com/xept-ai/xept-desktop-releases/releases/download/v0.4.1/Xept-0.4.1-win-x64-setup.exe">Windows</a>
+            <a class="btn" data-os="linux" data-i18n="btnLinux" rel="noopener" href="https://github.com/xept-ai/xept-desktop-releases/releases/download/v0.4.1/Xept-0.4.1-linux-x86_64.AppImage">Linux</a>
             <span class="ver mono">0.4.1</span>
-            <a class="more" rel="noopener" href="https://github.com/xept-ai/xept-desktop-releases/releases/latest">所有版本与安装说明</a>
+            <a class="more" data-i18n="allVersions" rel="noopener" href="https://github.com/xept-ai/xept-desktop-releases/releases/latest">所有版本与安装说明</a>
           </div>
-          <p class="fineprint">Mac 版需要 Apple 芯片，而且还没有苹果公证，第一次打开要<a rel="noopener" href="https://github.com/xept-ai/xept-desktop-releases/releases/latest">右键点图标选「打开」</a>。</p>
+          <p class="fineprint" data-i18n-html="finePrint">Mac 版需要 Apple 芯片，而且还没有苹果公证，第一次打开要<a rel="noopener" href="https://github.com/xept-ai/xept-desktop-releases/releases/latest">右键点图标选「打开」</a>。</p>
         </section>
 
-        <p class="hint"><a href="#why"><span class="rule" aria-hidden="true"></span><span>致科研人的一封信</span><span class="arr" aria-hidden="true">↓</span></a></p>
+        <p class="hint"><a href="#why"><span class="rule" aria-hidden="true"></span><span data-i18n="downHint">致科研人的一封信</span><span class="arr" aria-hidden="true">↓</span></a></p>
       </div>
 
       <section class="demo" aria-labelledby="demo-h">
-        <h2 class="sr-only" id="demo-h">从你的原材料到成稿</h2>
-        <p class="sr-only">下面先展示六组真实的输入，再展示 Xept 写出来的文档。第一组，材料：论文大纲.md、results/、学校格式要求.md；用户说：前三章已经写完了，现在要写第 4 章「实验与分析」。第二组，材料：data/、code/、results/、notes.md；用户说：Please write it up as a NeurIPS 2026 paper.。第三组，材料：main.tex、审稿意见.md、数据补充.md；用户说：收到大修意见了，帮我改稿并写修改说明（逐条回复）。第四组，材料：研究想法.md、前期工作.md、申请要求.md；用户说：我明年要报国自然面上项目，帮我把这些材料写成申请书的正文。第五组，材料：notes.md、old_cv.txt、pubs.bib；用户说：我今年秋天要申请北美的 tenure-track 助理教授，帮我把这些材料整理成一份英文学术简历。第六组，材料：作业要求.md、评分标准.md、bike_daily.csv；用户说：这是我统计学课的大作业要求和数据，先帮我粗写一版报告。</p>
+        <h2 class="sr-only" id="demo-h" data-i18n="demoHeading">从你的原材料到成稿</h2>
+        <p class="sr-only" data-i18n="promptsSr">下面先展示六组真实的输入，再展示 Xept 写出来的文档。第一组，材料：论文大纲.md、results/、学校格式要求.md；用户说：前三章已经写完了，现在要写第 4 章「实验与分析」。第二组，材料：data/、code/、results/、notes.md；用户说：Please write it up as a NeurIPS 2026 paper.。第三组，材料：main.tex、审稿意见.md、数据补充.md；用户说：收到大修意见了，帮我改稿并写修改说明（逐条回复）。第四组，材料：研究想法.md、前期工作.md、申请要求.md；用户说：我明年要报国自然面上项目，帮我把这些材料写成申请书的正文。第五组，材料：notes.md、old_cv.txt、pubs.bib；用户说：我今年秋天要申请北美的 tenure-track 助理教授，帮我把这些材料整理成一份英文学术简历。第六组，材料：作业要求.md、评分标准.md、bike_daily.csv；用户说：这是我统计学课的大作业要求和数据，先帮我粗写一版报告。</p>
 
         <div class="inputs" id="inputs">
           <div class="stage" id="stage" aria-hidden="true">
@@ -816,7 +864,7 @@ h1{
           </div>
         </div>
 
-        <p class="bridge" id="bridge"><span class="btxt">Xept 在你的电脑上写成</span><span class="flow" aria-hidden="true"><span class="spark"></span></span><span class="arrow" aria-hidden="true"><span class="ai">↓</span></span><span class="rule" aria-hidden="true"></span></p>
+        <p class="bridge" id="bridge"><span class="btxt" data-i18n="bridge">Xept 在你的电脑上写成</span><span class="flow" aria-hidden="true"><span class="spark"></span></span><span class="arrow" aria-hidden="true"><span class="ai">↓</span></span><span class="rule" aria-hidden="true"></span></p>
 
         <div class="wall" id="wall">
           <ul class="papers" id="papers">
@@ -849,12 +897,12 @@ h1{
   <section class="screen" id="why">
     <div class="why">
       <header>
-        <h2>致科研人的一封信</h2>
+        <h2 data-i18n="letterHeading">致科研人的一封信</h2>
         <div class="letter" id="letter">
         <p class="lead lead--open">写论文有很大一部分是机械劳动：套格式、对参考文献、回审稿意见、把同一个数字在五个地方改一遍。这些活必须有人做，但不必由你做。</p>
         <p class="lead">我们想把这部分交给机器，让你的时间回到科研本身：提出问题、设计实验、读懂数据，去探索那些还没有答案的问题。这也是我们的老本行。我们是计算机软件工程出身，本职就是做软件的自动化，现在把它用到科研和写作上。</p>
         <p class="lead">所以 Xept 免费给大家用，也希望你愿意一起维护它、把它讲给身边的人。</p>
-        <p class="sign mono">—— Xept 团队</p>
+        <p class="sign mono" data-i18n="sign">—— Xept 团队</p>
         </div>
       </header>
 
@@ -874,8 +922,8 @@ h1{
       </ul>
 
       <section class="block reveal">
-        <h3>它还能写这些</h3>
-        <ul class="tags">
+        <h3 data-i18n="tagsHeading">它还能写这些</h3>
+        <ul class="tags" id="tags">
           <li>学位论文章节</li>
           <li>NSF 与 NIH 申请书</li>
           <li>ERC 申请书</li>
@@ -899,15 +947,15 @@ h1{
       </section>
 
       <div class="close-out reveal">
-        <a class="btn btn--primary" id="dl-main" rel="noopener" href="https://github.com/xept-ai/xept-desktop-releases/releases/download/v0.4.1/Xept-0.4.1-mac-arm64.dmg">下载 Xept 0.4.1</a>
-        <p>装上打开就能写，不用注册账号。</p>
+        <a class="btn btn--primary" id="dl-main" data-i18n="cta" rel="noopener" href="https://github.com/xept-ai/xept-desktop-releases/releases/download/v0.4.1/Xept-0.4.1-mac-arm64.dmg">下载 Xept 0.4.1</a>
+        <p data-i18n="ctaNote">装上打开就能写，不用注册账号。</p>
       </div>
     </div>
   </section>
 </main>
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-labelledby="lb-cap" hidden>
-  <button type="button" class="lb-x" id="lb-x">关闭 ✕</button>
+  <button type="button" class="lb-x" id="lb-x" data-i18n="lbClose">关闭 ✕</button>
   <figure class="lb-fig" id="lb-fig">
     <img decoding="async" id="lb-img" src="" alt="">
     <figcaption id="lb-cap"></figcaption>
@@ -915,6 +963,322 @@ h1{
 </div>
 
 <script>
+/* ===========================================================================
+   中 / EN. Every sentence on the page lives here.
+   zh is word for word what the markup below says, so with no script at all the
+   page stays the complete Chinese page; en is written in by the script.
+   To change a sentence, change it here and nowhere else. Edit a prompt or a
+   wall caption and remember its screen-reader line (promptsSr / wallSr) says
+   the same thing in prose.
+   =========================================================================== */
+var STRINGS = {
+  zh: {
+    title: "Xept — 伴你写作",
+    slogan: "伴你写作",
+    sub: "装在你电脑上的学术写作工具：把你的材料和数据，写成能交出去的 Word 或 LaTeX 稿。",
+    wallSr: "右侧滚动展示的是 Xept 真实写出来的文档的页面截图——学位论文、英文会议论文、期刊返修稿、国自然与 NSF 申请书、中英文学术简历、课程作业与实验报告、学术海报等，每一张下方标注了文体和格式。不是示意图，也不是软件界面。点击任意一张可以放大查看。",
+    downloadHeading: "下载",
+    btnMac: "下载 macOS 版",
+    btnWin: "Windows",
+    btnLinux: "Linux",
+    allVersions: "所有版本与安装说明",
+    finePrint: "Mac 版需要 Apple 芯片，而且还没有苹果公证，第一次打开要<a rel=\"noopener\" href=\"https://github.com/xept-ai/xept-desktop-releases/releases/latest\">右键点图标选「打开」</a>。",
+    downHint: "致科研人的一封信",
+    demoHeading: "从你的原材料到成稿",
+    promptsSr: "下面先展示六组真实的输入，再展示 Xept 写出来的文档。第一组，材料：论文大纲.md、results/、学校格式要求.md；用户说：前三章已经写完了，现在要写第 4 章「实验与分析」。第二组，材料：data/、code/、results/、notes.md；用户说：Please write it up as a NeurIPS 2026 paper.。第三组，材料：main.tex、审稿意见.md、数据补充.md；用户说：收到大修意见了，帮我改稿并写修改说明（逐条回复）。第四组，材料：研究想法.md、前期工作.md、申请要求.md；用户说：我明年要报国自然面上项目，帮我把这些材料写成申请书的正文。第五组，材料：notes.md、old_cv.txt、pubs.bib；用户说：我今年秋天要申请北美的 tenure-track 助理教授，帮我把这些材料整理成一份英文学术简历。第六组，材料：作业要求.md、评分标准.md、bike_daily.csv；用户说：这是我统计学课的大作业要求和数据，先帮我粗写一版报告。",
+    bridge: "Xept 在你的电脑上写成",
+
+    /* screen 1, right: the six things you type (materials line, then the sentence) */
+    prompts: [
+      { srcs: "论文大纲.md · results/ · 学校格式要求.md",
+        say:  "前三章已经写完了，现在要写第 4 章「实验与分析」。" },
+      { srcs: "data/ · code/ · results/ · notes.md",
+        say:  "Please write it up as a NeurIPS 2026 paper." },
+      { srcs: "main.tex · 审稿意见.md · 数据补充.md",
+        say:  "收到大修意见了，帮我改稿并写修改说明（逐条回复）。" },
+      { srcs: "研究想法.md · 前期工作.md · 申请要求.md",
+        say:  "我明年要报国自然面上项目，帮我把这些材料写成申请书的正文。" },
+      { srcs: "notes.md · old_cv.txt · pubs.bib",
+        say:  "我今年秋天要申请北美的 tenure-track 助理教授，帮我把这些材料整理成一份英文学术简历。" },
+      { srcs: "作业要求.md · 评分标准.md · bike_daily.csv",
+        say:  "这是我统计学课的大作业要求和数据，先帮我粗写一版报告。" },
+    ],
+
+    /* the wall: each sheet is assets/<img>, <w>x760, and the caption is also its alt */
+    wall: [
+      { img: "thesis-cover.jpg",        w: 537, cap: "硕士学位论文 · 学校模板 · 封面" },
+      { img: "journal-en-p1.jpg",       w: 587, cap: "英文会议论文 · 15 页 · PDF" },
+      { img: "grant-nsfc-p1.jpg",       w: 537, cap: "国自然面上申请书 · 立项依据" },
+      { img: "cv-en.jpg",               w: 587, cap: "英文学术简历 · PDF" },
+      { img: "hw-stats.jpg",            w: 537, cap: "统计学课程作业 · 中文 · Word" },
+      { img: "thesis-refs.jpg",         w: 537, cap: "学位论文参考文献 · GB/T 7714" },
+      { img: "journal-revision.jpg",    w: 537, cap: "中文期刊返修稿 · 改动标蓝" },
+      { img: "grant-nsf-desc.jpg",      w: 587, cap: "NSF CAREER 申请书正文 · 英文" },
+      { img: "cv-zh.jpg",               w: 587, cap: "中文学术简历 · PDF" },
+      { img: "hw-litreview.jpg",        w: 537, cap: "英文文献综述 · APA · Word" },
+      { img: "thesis-body.jpg",         w: 537, cap: "学位论文正文 · GB/T 7714 引用" },
+      { img: "journal-en-p8.jpg",       w: 587, cap: "论文内页：图表与附录 · PDF" },
+      { img: "grant-nsfc-p6.jpg",       w: 537, cap: "国自然申请书 · 研究方案与技术路线" },
+      { img: "hw-school-format.jpg",    w: 537, cap: "按学校格式排版的课程论文 · Word" },
+      { img: "thesis-toc.jpg",          w: 537, cap: "学位论文目录 · 自动编号" },
+      { img: "grant-nsf-summary.jpg",   w: 587, cap: "NSF Project Summary · 1 页" },
+      { img: "hw-physics.jpg",          w: 537, cap: "物理实验报告 · 英文 · PDF" },
+      { img: "hw-case.jpg",             w: 537, cap: "管理学案例分析 · 中文 · Word" },
+      { img: "hw-chem.jpg",             w: 537, cap: "化学实验报告 · 公式与数据表" },
+      { img: "poster.jpg",              w: 537, cap: "学术会议海报 · A0 · PDF" },
+    ],
+
+    /* screen 2 */
+    letterHeading: "致科研人的一封信",
+    letter: [
+      "写论文有很大一部分是机械劳动：套格式、对参考文献、回审稿意见、把同一个数字在五个地方改一遍。这些活必须有人做，但不必由你做。",
+      "我们想把这部分交给机器，让你的时间回到科研本身：提出问题、设计实验、读懂数据，去探索那些还没有答案的问题。这也是我们的老本行。我们是计算机软件工程出身，本职就是做软件的自动化，现在把它用到科研和写作上。",
+      "所以 Xept 免费给大家用，也希望你愿意一起维护它、把它讲给身边的人。",
+    ],
+    sign: "—— Xept 团队",
+    cards: [
+      { h: "装在你自己的电脑上",
+        p: "你的数据不出本机。它还能在本地直接跑 Python 脚本，处理你的数据、画你的图。" },
+      { h: "有 token 就能接入",
+        p: "填上你自己的 Claude、OpenAI、DeepSeek、Kimi、GLM 或 OpenRouter 的 key，就能开始用。" },
+      { h: "会开源",
+        p: "Xept 的代码会公开，欢迎一起维护。" },
+    ],
+    tagsHeading: "它还能写这些",
+    tags: [
+      "学位论文章节", "NSF 与 NIH 申请书", "ERC 申请书",
+      "国自然面上", "开题报告", "会议幻灯片",
+      "A0 海报", "学术简历", "会议 rebuttal",
+      "期刊 response letter", "期刊返修", "中译英",
+      "去 AI 味", "压到页数限制", "换会议模板",
+      "按学校格式排 Word", "三线表与数据图", "投稿前检查",
+      "文献检索与 bib 条目",
+    ],
+    cta: "下载 Xept 0.4.1",
+    ctaNote: "装上打开就能写，不用注册账号。",
+
+    /* chrome */
+    lbClose: "关闭 ✕",
+    langLabel: "中文",
+    langAction: "切换到 English"
+  },
+  en: {
+    title: "Xept — Writing, with you",
+    slogan: "Writing, with you",
+    sub: "An academic writing tool that runs on your own computer. It turns your materials and data into a Word or LaTeX draft you can hand in.",
+    wallSr: "The column on the right shows screenshots of real documents Xept wrote — conference and humanities papers, NSF proposal files, an academic CV, lab reports and a literature review. Each one is captioned with its genre and format. These are not mock-ups and not screenshots of the app. Click any sheet to enlarge it.",
+    downloadHeading: "Download",
+    btnMac: "Download for macOS",
+    btnWin: "Windows",
+    btnLinux: "Linux",
+    allVersions: "All versions and install notes",
+    finePrint: "The Mac build needs Apple silicon and is not notarized yet: the first time, <a rel=\"noopener\" href=\"https://github.com/xept-ai/xept-desktop-releases/releases/latest\">right-click the icon and choose Open</a>.",
+    downHint: "A letter to researchers",
+    demoHeading: "From your materials to a finished draft",
+    promptsSr: "Below you will first see six real inputs, then the documents Xept wrote. One, materials: outline.md, results/, school_format.md; the user said: The first three chapters are done. Now I need Chapter 4, Experiments and Analysis. Two, materials: data/, code/, results/, notes.md; the user said: Please write it up as a NeurIPS 2026 paper. Three, materials: notes.md, preliminary/, prior_work.md, cv.md; the user said: I'm applying for an NSF CAREER award. Please write the Project Summary and Project Description. Four, materials: notes.md, old_cv.txt, pubs.bib; the user said: I'm applying for tenure-track assistant professor positions this fall. Please turn these materials into an academic CV. Five, materials: assignment_brief.md; the user said: Here's my literature review assignment brief. Please write the review for me. Six, materials: lab_notes.txt, pendulum_data.csv, report_template.md; the user said: Can you write up my pendulum lab report? My data, notes and the course template are in the folder.",
+    bridge: "Xept writes it on your computer",
+
+    /* screen 1, right: the six things you type (materials line, then the sentence) */
+    prompts: [
+      { srcs: "outline.md · results/ · school_format.md",
+        say:  "The first three chapters are done. Now I need Chapter 4, Experiments and Analysis." },
+      { srcs: "data/ · code/ · results/ · notes.md",
+        say:  "Please write it up as a NeurIPS 2026 paper." },
+      { srcs: "notes.md · preliminary/ · prior_work.md · cv.md",
+        say:  "I'm applying for an NSF CAREER award. Please write the Project Summary and Project Description." },
+      { srcs: "notes.md · old_cv.txt · pubs.bib",
+        say:  "I'm applying for tenure-track assistant professor positions this fall. Please turn these materials into an academic CV." },
+      { srcs: "assignment_brief.md",
+        say:  "Here's my literature review assignment brief. Please write the review for me." },
+      { srcs: "lab_notes.txt · pendulum_data.csv · report_template.md",
+        say:  "Can you write up my pendulum lab report? My data, notes and the course template are in the folder." },
+    ],
+
+    /* the wall: each sheet is assets/<img>, <w>x760, and the caption is also its alt */
+    wall: [
+      { img: "journal-en-p1.jpg",       w: 587, cap: "Conference paper · 15 pages · PDF" },
+      { img: "grant-nsf-desc.jpg",      w: 587, cap: "NSF CAREER Project Description" },
+      { img: "cv-en.jpg",               w: 587, cap: "Academic CV · PDF" },
+      { img: "humanities-p1.jpg",       w: 587, cap: "Humanities paper · 23 pages · PDF" },
+      { img: "hw-physics.jpg",          w: 537, cap: "Physics lab report · PDF" },
+      { img: "grant-nsf-summary.jpg",   w: 587, cap: "NSF Project Summary · 1 page" },
+      { img: "journal-en-p8.jpg",       w: 587, cap: "Inside the paper: tables and figures" },
+      { img: "grant-nsf-dmp.jpg",       w: 587, cap: "Data Management Plan" },
+      { img: "cv-en-p2.jpg",            w: 587, cap: "CV · publications and preprints" },
+      { img: "humanities-p9.jpg",       w: 587, cap: "Close reading, sources quoted in full" },
+      { img: "hw-litreview.jpg",        w: 537, cap: "Literature review · APA · Word" },
+      { img: "journal-en-p3.jpg",       w: 587, cap: "Method section · model and equations" },
+      { img: "grant-nsf-mentoring.jpg", w: 587, cap: "Postdoctoral Mentoring Plan" },
+      { img: "theory-notes.jpg",        w: 587, cap: "Derivation notes · LaTeX" },
+      { img: "humanities-p14.jpg",      w: 587, cap: "Argument section with quoted sources" },
+      { img: "hw-physics-p2.jpg",       w: 537, cap: "Method and measurements" },
+      { img: "journal-en-p12.jpg",      w: 587, cap: "Appendix · proof of Proposition 1" },
+      { img: "grant-nsf-desc-p5.jpg",   w: 587, cap: "Project Description · inside pages" },
+      { img: "hw-litreview-p2.jpg",     w: 537, cap: "Literature review · argument and citations" },
+    ],
+
+    /* screen 2 */
+    letterHeading: "A letter to researchers",
+    letter: [
+      "A large part of writing a paper is mechanical work: fixing the formatting, checking references one by one, answering reviewers point by point, changing the same number in five different places. Someone has to do it. It doesn't have to be you.",
+      "We want to hand that part to a machine, so your time goes back to the research itself: asking the question, designing the experiment, understanding the data, going after the problems that have no answer yet. This is also our day job. We come from software engineering, where automating work is what we do, and we are now pointing it at research and writing.",
+      "So Xept is free to use. We hope you will help maintain it, and tell the people around you about it.",
+    ],
+    sign: "— The Xept team",
+    cards: [
+      { h: "Runs on your own computer",
+        p: "Your data never leaves the machine. It can also run Python scripts locally to process your data and draw your figures." },
+      { h: "Bring your own tokens",
+        p: "Paste in your own Claude, OpenAI, DeepSeek, Kimi, GLM or OpenRouter key and you are running." },
+      { h: "It will be open source",
+        p: "The code will be public. Help maintain it." },
+    ],
+    tagsHeading: "It also writes these",
+    tags: [
+      "Thesis chapters", "NSF and NIH proposals", "ERC proposals",
+      "NSFC general program", "Proposal defenses", "Conference slides",
+      "A0 posters", "Academic CVs", "Conference rebuttals",
+      "Response letters", "Journal revisions", "Chinese to English",
+      "Removing the AI tone", "Cutting to the page limit", "Switching conference templates",
+      "Word to your school's format", "Booktabs tables and data figures", "Pre-submission checks",
+      "Literature search and bib entries",
+    ],
+    cta: "Download Xept 0.4.1",
+    ctaNote: "Install it, open it, start writing. No account needed.",
+
+    /* chrome */
+    lbClose: "Close ✕",
+    langLabel: "EN",
+    langAction: "Switch to Chinese"
+  }
+};
+
+(function(){
+  var KEY = 'xept-lang';
+  var sw      = document.getElementById('langsw');
+  var stage   = document.getElementById('stage');
+  var papers  = document.getElementById('papers');
+  var tags    = document.getElementById('tags');
+  var letter  = document.getElementById('letter');
+  var listeners = [];
+  var cur = 'zh';
+
+  function esc(t){
+    return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  /* the same shape the markup authors by hand: first six eager, first two priority */
+  function wallHtml(items){
+    var out = [], k, it, load;
+    for (k = 0; k < items.length; k++){
+      it = items[k];
+      load = k < 6 ? ' loading="eager"' + (k < 2 ? ' fetchpriority="high"' : '') : ' loading="lazy"';
+      out.push('<li><button type="button" class="sheet" data-cap="' + esc(it.cap) + '">'
+             + '<img decoding="async" src="assets/' + esc(it.img) + '" width="' + it.w
+             + '" height="760"' + load + ' alt="' + esc(it.cap) + '">'
+             + '<span class="cap" aria-hidden="true">' + esc(it.cap) + '</span></button></li>');
+    }
+    return out.join('\n');
+  }
+  function stageHtml(groups){
+    var out = [], k;
+    for (k = 0; k < groups.length; k++){
+      out.push('<div class="igroup" data-say="' + esc(groups[k].say) + '">'
+             + '<p class="srcs">' + esc(groups[k].srcs) + '</p>'
+             + '<p class="said"><span class="typed"></span><span class="caret"></span></p></div>');
+    }
+    return out.join('\n');
+  }
+
+  function chrome(S, lang){
+    document.documentElement.lang = lang === 'en' ? 'en' : 'zh-CN';
+    if (!sw) return;
+    sw.textContent = S.langLabel;
+    sw.setAttribute('aria-label', S.langAction);
+    sw.setAttribute('title', S.langAction);
+    sw.setAttribute('lang', lang === 'en' ? 'en' : 'zh-CN');
+  }
+
+  function apply(lang, first){
+    var S = STRINGS[lang] || STRINGS.zh, i, k, el, out;
+    cur = lang;
+    /* first paint in Chinese: the markup already is STRINGS.zh, so touch nothing */
+    if (first && lang !== 'en'){ chrome(S, lang); return; }
+    chrome(S, lang);
+    document.title = S.title;
+
+    var nodes = document.querySelectorAll('[data-i18n]');
+    for (i = 0; i < nodes.length; i++){
+      k = nodes[i].getAttribute('data-i18n');
+      if (S[k] != null) nodes[i].textContent = S[k];
+    }
+    nodes = document.querySelectorAll('[data-i18n-html]');
+    for (i = 0; i < nodes.length; i++){
+      k = nodes[i].getAttribute('data-i18n-html');
+      if (S[k] != null) nodes[i].innerHTML = S[k];
+    }
+    if (stage && S.prompts) stage.innerHTML = stageHtml(S.prompts);
+    if (papers && S.wall) papers.innerHTML = wallHtml(S.wall);
+    if (tags && S.tags){
+      out = [];
+      for (i = 0; i < S.tags.length; i++) out.push('<li>' + esc(S.tags[i]) + '</li>');
+      tags.innerHTML = out.join('');
+    }
+    if (letter && S.letter){
+      nodes = letter.querySelectorAll('.lead');
+      for (i = 0; i < nodes.length && i < S.letter.length; i++) nodes[i].textContent = S.letter[i];
+    }
+    if (S.cards){
+      nodes = document.querySelectorAll('.reasons li');
+      for (i = 0; i < nodes.length && i < S.cards.length; i++){
+        el = nodes[i].querySelector('h3'); if (el) el.textContent = S.cards[i].h;
+        el = nodes[i].querySelector('p');  if (el) el.textContent = S.cards[i].p;
+      }
+    }
+  }
+
+  /* ?lang= -> localStorage -> the browser's own language */
+  function resolve(){
+    var m = /[?&]lang=([^&#]*)/.exec(location.search || '');
+    var q = m ? decodeURIComponent(m[1]) : null;
+    if (q === 'en' || q === 'zh') return q;
+    var st = null;
+    try { st = localStorage.getItem(KEY); } catch(e){}
+    if (st === 'en' || st === 'zh') return st;
+    var n = String(navigator.language || (navigator.languages || [])[0] || '').toLowerCase();
+    return n.indexOf('zh') === 0 ? 'zh' : 'en';
+  }
+
+  function set(lang){
+    if (lang !== 'en' && lang !== 'zh') lang = 'zh';
+    apply(lang, false);
+    try { localStorage.setItem(KEY, lang); } catch(e){}
+    /* a ?lang= link is shareable, and no reload happens */
+    try {
+      var keep = String(location.search || '').replace(/^\?/, '').split('&');
+      var q = [], i;
+      for (i = 0; i < keep.length; i++){
+        if (keep[i] && keep[i].indexOf('lang=') !== 0) q.push(keep[i]);
+      }
+      q.push('lang=' + lang);
+      history.replaceState(null, '', location.pathname + '?' + q.join('&') + (location.hash || ''));
+    } catch(e){}
+    for (var j = 0; j < listeners.length; j++){ try { listeners[j](lang); } catch(e){} }
+  }
+
+  window.XEPT = {
+    lang: function(){ return cur; },
+    set: set,
+    onLang: function(fn){ if (typeof fn === 'function') listeners.push(fn); }
+  };
+
+  if (sw){
+    sw.setAttribute('data-on', '');
+    sw.addEventListener('click', function(){ set(cur === 'en' ? 'zh' : 'en'); });
+  }
+  apply(resolve(), true);
+})();
+
 /* Put the visitor's own platform first among the download links.
    Runs at the end of the parse, before the first paint, so the swap is never seen.
    Detection that does not land on exactly one desktop platform changes nothing:
@@ -1030,17 +1394,23 @@ h1{
 
   var typer = (function(){
     var stage  = document.getElementById('stage');
-    var groups = Array.prototype.slice.call(stage.querySelectorAll('.igroup'));
-    var spans  = groups.map(function(g){ return g.querySelector('.typed'); });
-    var says   = groups.map(function(g){ return g.getAttribute('data-say') || ''; });
     var WIDE   = /[⺀-鿿　-〿＀-￯]/;   /* Han + CJK punctuation */
     var IN = 300, HOLD = 2000, OUT = 500;
+    var groups, spans, says, plans;
     /* cumulative time at which each character has landed */
-    var plans = says.map(function(s){
+    function plan(s){
       var t = 0, marks = [];
       for (var k = 0; k < s.length; k++){ t += WIDE.test(s.charAt(k)) ? 62 : 26; marks.push(t); }
       return { marks: marks, dur: t };
-    });
+    }
+    /* read from the DOM, because a language switch rebuilds the stage from its own strings */
+    function read(){
+      groups = Array.prototype.slice.call(stage.querySelectorAll('.igroup'));
+      spans  = groups.map(function(g){ return g.querySelector('.typed'); });
+      says   = groups.map(function(g){ return g.getAttribute('data-say') || ''; });
+      plans  = says.map(plan);
+    }
+    read();
     var i = 0, el = 0, shown = -1, raf = null, frozen = false, last = 0, hit = false;
 
     function paint(){
@@ -1077,6 +1447,8 @@ h1{
     }
     stage.setAttribute('data-js', '');
     return {
+      /* a language switch replaced the groups: drop the old ones, start at group 1 */
+      rebuild: function(){ stop(); read(); frozen = false; clear(); },
       play: function(){
         if (frozen){ frozen = false; clear(); }
         if (raf) return;
@@ -1125,6 +1497,25 @@ h1{
     }, { threshold: 0.08 }).observe(inputs);
   }
   sync();
+
+  /* ---------- the language switch ----------
+     The wall and the stage have just been re-rendered from the other language's
+     strings. Drop the old columns and their clones, take the new sheets as the
+     originals, build once, and let sync() put both animations back in the state
+     the reader's scroll position and tab visibility ask for. */
+  if (window.XEPT && window.XEPT.onLang) window.XEPT.onLang(function(){
+    var old = wall.querySelector('.cols');
+    if (old) old.remove();
+    originals = Array.prototype.slice.call(papers.children);
+    build();
+    typer.rebuild();
+    sync();
+    /* the enlarged sheet belongs to the other language's set: put it away and forget it,
+       so not one word of the language just left is anywhere in the page */
+    close();
+    lbImg.alt = '';
+    lbCap.textContent = '';
+  });
 
   /* ---------- lightbox ---------- */
   var lb = document.getElementById('lb');
@@ -1186,10 +1577,19 @@ h1{
   var reveals = Array.prototype.slice.call(why.querySelectorAll('.reveal'));
 
   /* the real text stays in the page for screen readers; the animated copy is decorative */
-  var a11y = letter.cloneNode(true);
-  a11y.removeAttribute('id');
-  a11y.className = 'sr-only';
-  letter.parentNode.insertBefore(a11y, letter);
+  var a11y = null;
+  function syncA11y(){
+    var copy = letter.cloneNode(true);
+    copy.removeAttribute('id');
+    copy.removeAttribute('aria-hidden');
+    copy.className = 'sr-only';
+    var c = copy.querySelector('.lcaret');
+    if (c && c.parentNode) c.parentNode.removeChild(c);
+    if (a11y) a11y.parentNode.replaceChild(copy, a11y);
+    else letter.parentNode.insertBefore(copy, letter);
+    a11y = copy;
+  }
+  syncA11y();
   letter.setAttribute('aria-hidden', 'true');
 
   why.classList.add('js-reveal');
@@ -1197,6 +1597,24 @@ h1{
   var texts = paras.map(function(el){ return el.textContent; });
   var WIDE = /[\u2E80-\u9FFF\u3000-\u303F\uFF00-\uFFEF]/;
   var CJK = 19, ASCII = 9, GAP = 210, BEFORE_REVEAL = 170, STAGGER = 115;
+
+  /* ---------- the language switch ----------
+     The paragraphs now hold the other language's text. Resync the screen-reader
+     copy, then: if the letter has already been read to the end, swap the text in
+     and leave the cards up; if it is mid-typing, type it again from the top; if
+     the reader has not got here yet, just re-pin the heights and keep waiting. */
+  if (window.XEPT && window.XEPT.onLang) window.XEPT.onLang(function(){
+    syncA11y();
+    texts = paras.map(function(el){ return el.textContent; });
+    if (reduce.matches) return;
+    if (raf){ cancelAnimationFrame(raf); raf = null; }
+    if (done){
+      paras.forEach(function(el, i){ el.textContent = texts[i]; el.style.minHeight = ''; });
+      return;
+    }
+    pin();
+    if (started) run();
+  });
 
   function pin(){
     paras.forEach(function(el){
