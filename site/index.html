@@ -656,6 +656,8 @@ html[lang="en"] .qrs{display:none}
   min-height:0;
   max-width:100%;
 }
+.lb-fig img.is-swapped{animation:lbSharpen .28s ease}
+@keyframes lbSharpen{from{opacity:.75}to{opacity:1}}
 .lb-fig img{
   max-width:100%;
   height:100%;
@@ -1642,25 +1644,46 @@ var STRINGS = {
   var opener = null;
   var wasPaused = false;
 
-  /* The wall carries 760px-tall thumbnails. Enlarged, those are soft, so the lightbox
-     shows the thumbnail at once (it is already cached, so there is no blank frame) and
-     swaps in the 1700px copy from assets/lg/ when that arrives. A missing large copy
-     just never swaps, and the reader keeps the thumbnail. */
-  var lbSeq = 0;
+  /* The wall carries 760px-tall thumbnails; the lightbox wants the 2400px copy from
+     assets/lg/. Fetching that only on click means a visibly soft first frame, so the
+     large copy is fetched as soon as a sheet is hovered, focused or touched — by the
+     time the click lands it is usually in cache and the lightbox opens sharp. If it is
+     not ready, the thumbnail stands in (no blank frame) and is replaced on arrival,
+     with a short fade so the swap is not a jolt. A missing large copy never swaps. */
+  var lbSeq = 0, warmed = {};
+  function bigOf(small){ return small.replace(/([^\/]+)$/, 'lg/$1'); }
+  function warm(btn){
+    var img = btn && btn.querySelector('img');
+    if (!img) return;
+    var big = bigOf(img.getAttribute('src'));
+    if (warmed[big]) return;
+    warmed[big] = new Image();
+    warmed[big].src = big;
+  }
+  function onWarm(e){
+    var btn = e.target.closest ? e.target.closest('.sheet') : null;
+    if (btn) warm(btn);
+  }
+  wall.addEventListener('pointerover', onWarm);
+  wall.addEventListener('focusin', onWarm);
+  wall.addEventListener('touchstart', onWarm, { passive: true });
+
   function open(btn){
     var img = btn.querySelector('img');
     if (!img) return;
     opener = btn;
     wasPaused = wall.classList.contains('is-paused');
     var small = img.getAttribute('src');
-    lbImg.src = small;
-    var big = small.replace(/([^\/]+)$/, 'lg/$1');
-    if (big !== small){
-      var mine = ++lbSeq, pre = new Image();
+    var big = bigOf(small);
+    var ready = warmed[big] && warmed[big].complete && warmed[big].naturalWidth > 0;
+    lbImg.classList.remove('is-swapped');
+    lbImg.src = ready ? big : small;
+    if (!ready && big !== small){
+      var mine = ++lbSeq, pre = warmed[big] || (warmed[big] = new Image());
       pre.onload = function(){
-        if (mine === lbSeq && !lb.hidden) lbImg.src = big;
+        if (mine === lbSeq && !lb.hidden){ lbImg.src = big; lbImg.classList.add('is-swapped'); }
       };
-      pre.src = big;
+      if (!pre.src) pre.src = big;
     }
     lbImg.alt = img.getAttribute('alt') || '';
     lbCap.textContent = btn.getAttribute('data-cap') || '';
