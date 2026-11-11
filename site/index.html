@@ -500,10 +500,8 @@ h1{
   line-height:1.6;
 }
 .why-main{grid-column:1;min-width:0;max-width:1240px;display:flex;flex-direction:column;gap:clamp(14px,3.4vh,40px)}
-.contact{grid-column:2;grid-row:1;align-self:end;justify-self:end;text-align:right;min-width:0}
-.qrs{justify-content:flex-end}
-.qrs figcaption{margin-left:auto}
-@media (max-width:760px){.contact{text-align:left;justify-self:start}.qrs{justify-content:flex-start}.qrs figcaption{margin-left:0}}
+.contact{grid-column:2;grid-row:1;align-self:end;justify-self:end;min-width:0}
+@media (max-width:760px){.contact{justify-self:start}}
 .contact h3{
   margin:0 0 clamp(10px,1.4vh,16px);
   font-family:var(--mono);
