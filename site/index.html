@@ -213,15 +213,6 @@ h1{
 }
 .btn--primary{background:var(--accent);color:var(--on-accent)}
 .ver{font-size:12.5px;color:var(--muted);font-family:var(--mono)}
-.fineprint{
-  margin:0;
-  max-width:46ch;
-  color:var(--muted);
-  font-size:clamp(11.5px,.86vw,13px);
-  line-height:1.55;
-}
-.fineprint a{color:inherit;text-decoration:underline;text-underline-offset:2px}
-.fineprint a:hover{color:var(--accent)}
 /* the quiet "all versions" link that sits on the download row, same voice as .hint a */
 .more{
   display:inline-flex;
@@ -819,13 +810,12 @@ html[lang="en"] .lead--open{max-width:68ch}
         <section class="getit">
           <h2 class="sr-only" data-i18n="downloadHeading">下载</h2>
           <div class="dl" id="dl">
-            <a class="btn btn--primary" data-os="mac" data-i18n="btnMac" rel="noopener" href="https://github.com/xept-ai/xept-desktop-releases/releases/download/v0.4.1/Xept-0.4.1-mac-arm64.dmg">下载 macOS 版</a>
-            <a class="btn" data-os="win" data-i18n="btnWin" rel="noopener" href="https://github.com/xept-ai/xept-desktop-releases/releases/download/v0.4.1/Xept-0.4.1-win-x64-setup.exe">Windows</a>
-            <a class="btn" data-os="linux" data-i18n="btnLinux" rel="noopener" href="https://github.com/xept-ai/xept-desktop-releases/releases/download/v0.4.1/Xept-0.4.1-linux-x86_64.AppImage">Linux</a>
+            <a class="btn btn--primary" data-os="mac" rel="noopener" href="https://github.com/xept-ai/xept-desktop-releases/releases/download/v0.4.1/Xept-0.4.1-mac-arm64.dmg">下载 macOS 版</a>
+            <a class="btn" data-os="win" rel="noopener" href="https://github.com/xept-ai/xept-desktop-releases/releases/download/v0.4.1/Xept-0.4.1-win-x64-setup.exe">Windows</a>
+            <a class="btn" data-os="linux" rel="noopener" href="https://github.com/xept-ai/xept-desktop-releases/releases/download/v0.4.1/Xept-0.4.1-linux-x86_64.AppImage">Linux</a>
             <span class="ver mono">0.4.1</span>
             <a class="more" data-i18n="allVersions" rel="noopener" href="https://github.com/xept-ai/xept-desktop-releases/releases/latest">所有版本与安装说明</a>
           </div>
-          <p class="fineprint" data-i18n-html="finePrint">Mac 版需要 Apple 芯片，而且还没有苹果公证，第一次打开要<a rel="noopener" href="https://github.com/xept-ai/xept-desktop-releases/releases/latest">右键点图标选「打开」</a>。</p>
         </section>
 
         <p class="hint"><a href="#why"><span class="rule" aria-hidden="true"></span><span data-i18n="downHint">致科研人的一封信</span><span class="arr" aria-hidden="true">↓</span></a></p>
@@ -978,11 +968,10 @@ var STRINGS = {
     sub: "装在你电脑上的学术写作工具：把你的材料和数据，写成能交出去的 Word 或 LaTeX 稿。",
     wallSr: "右侧滚动展示的是 Xept 真实写出来的文档的页面截图——学位论文、英文会议论文、期刊返修稿、国自然与 NSF 申请书、中英文学术简历、课程作业与实验报告、学术海报等，每一张下方标注了文体和格式。不是示意图，也不是软件界面。点击任意一张可以放大查看。",
     downloadHeading: "下载",
-    btnMac: "下载 macOS 版",
-    btnWin: "Windows",
-    btnLinux: "Linux",
+    /* 主按钮写成「下载 X 版」，另外两个只写系统名；哪个是主按钮由访客的系统决定 */
+    dlFmt: "下载 {} 版",
+    dlName: { mac: "macOS", win: "Windows", linux: "Linux" },
     allVersions: "所有版本与安装说明",
-    finePrint: "Mac 版需要 Apple 芯片，而且还没有苹果公证，第一次打开要<a rel=\"noopener\" href=\"https://github.com/xept-ai/xept-desktop-releases/releases/latest\">右键点图标选「打开」</a>。",
     downHint: "致科研人的一封信",
     demoHeading: "从你的原材料到成稿",
     promptsSr: "下面先展示六组真实的输入，再展示 Xept 写出来的文档。第一组，材料：论文大纲.md、results/、学校格式要求.md；用户说：前三章已经写完了，现在要写第 4 章「实验与分析」。第二组，材料：data/、code/、results/、notes.md；用户说：Please write it up as a NeurIPS 2026 paper.。第三组，材料：main.tex、审稿意见.md、数据补充.md；用户说：收到大修意见了，帮我改稿并写修改说明（逐条回复）。第四组，材料：研究想法.md、前期工作.md、申请要求.md；用户说：我明年要报国自然面上项目，帮我把这些材料写成申请书的正文。第五组，材料：notes.md、old_cv.txt、pubs.bib；用户说：我今年秋天要申请北美的 tenure-track 助理教授，帮我把这些材料整理成一份英文学术简历。第六组，材料：作业要求.md、评分标准.md、bike_daily.csv；用户说：这是我统计学课的大作业要求和数据，先帮我粗写一版报告。",
@@ -1068,11 +1057,9 @@ var STRINGS = {
     sub: "An academic writing tool that runs on your own computer. It turns your materials and data into a Word or LaTeX draft you can hand in.",
     wallSr: "The column on the right shows screenshots of real documents Xept wrote — conference and humanities papers, NSF proposal files, an academic CV, lab reports and a literature review. Each one is captioned with its genre and format. These are not mock-ups and not screenshots of the app. Click any sheet to enlarge it.",
     downloadHeading: "Download",
-    btnMac: "Download for macOS",
-    btnWin: "Windows",
-    btnLinux: "Linux",
+    dlFmt: "Download for {}",
+    dlName: { mac: "macOS", win: "Windows", linux: "Linux" },
     allVersions: "All versions and install notes",
-    finePrint: "The Mac build needs Apple silicon and is not notarized yet: the first time, <a rel=\"noopener\" href=\"https://github.com/xept-ai/xept-desktop-releases/releases/latest\">right-click the icon and choose Open</a>.",
     downHint: "A letter to researchers",
     demoHeading: "From your materials to a finished draft",
     promptsSr: "Below you will first see six real inputs, then the documents Xept wrote. One, materials: outline.md, results/, school_format.md; the user said: The first three chapters are done. Now I need Chapter 4, Experiments and Analysis. Two, materials: data/, code/, results/, notes.md; the user said: Please write it up as a NeurIPS 2026 paper. Three, materials: notes.md, preliminary/, prior_work.md, cv.md; the user said: I'm applying for an NSF CAREER award. Please write the Project Summary and Project Description. Four, materials: notes.md, old_cv.txt, pubs.bib; the user said: I'm applying for tenure-track assistant professor positions this fall. Please turn these materials into an academic CV. Five, materials: assignment_brief.md; the user said: Here's my literature review assignment brief. Please write the review for me. Six, materials: lab_notes.txt, pendulum_data.csv, report_template.md; the user said: Can you write up my pendulum lab report? My data, notes and the course template are in the folder.",
@@ -1199,11 +1186,24 @@ var STRINGS = {
     sw.setAttribute('lang', lang === 'en' ? 'en' : 'zh-CN');
   }
 
+  /* the promoted platform reads "Download for X"; the other two are just names */
+  function paintDl(S){
+    var dl = document.getElementById('dl'), nodes, a, nm, i;
+    if (!dl || !S.dlFmt || !S.dlName) return;
+    nodes = dl.querySelectorAll('[data-os]');
+    for (i = 0; i < nodes.length; i++){
+      a = nodes[i];
+      nm = S.dlName[a.getAttribute('data-os')];
+      if (!nm) continue;
+      a.textContent = a.classList.contains('btn--primary') ? S.dlFmt.replace('{}', nm) : nm;
+    }
+  }
+
   function apply(lang, first){
     var S = STRINGS[lang] || STRINGS.zh, i, k, el, out;
     cur = lang;
     /* first paint in Chinese: the markup already is STRINGS.zh, so touch nothing */
-    if (first && lang !== 'en'){ chrome(S, lang); return; }
+    if (first && lang !== 'en'){ chrome(S, lang); paintDl(S); return; }
     chrome(S, lang);
     document.title = S.title;
 
@@ -1217,6 +1217,7 @@ var STRINGS = {
       k = nodes[i].getAttribute('data-i18n-html');
       if (S[k] != null) nodes[i].innerHTML = S[k];
     }
+    paintDl(S);
     if (stage && S.prompts) stage.innerHTML = stageHtml(S.prompts);
     if (papers && S.wall) papers.innerHTML = wallHtml(S.wall);
     if (tags && S.tags){
@@ -1269,6 +1270,7 @@ var STRINGS = {
   window.XEPT = {
     lang: function(){ return cur; },
     set: set,
+    repaintDl: function(){ paintDl(STRINGS[cur] || STRINGS.zh); },
     onLang: function(fn){ if (typeof fn === 'function') listeners.push(fn); }
   };
 
@@ -1299,6 +1301,7 @@ var STRINGS = {
   for (var i = 0; i < all.length; i++) all[i].classList.remove('btn--primary');
   pick.classList.add('btn--primary');
   if (pick !== dl.firstElementChild) dl.insertBefore(pick, dl.firstElementChild);
+  if (window.XEPT && window.XEPT.repaintDl) window.XEPT.repaintDl();
   var main = document.getElementById('dl-main');
   if (main) main.href = pick.href;   /* screen 2's one button follows the same platform */
 })();
