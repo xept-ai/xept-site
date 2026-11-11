@@ -807,8 +807,40 @@ html[lang="en"] .lead--open{max-width:68ch}
               <p class="srcs">研究想法.md · 前期工作.md · 申请要求.md</p>
               <p class="said"><span class="typed"></span><span class="caret"></span></p>
             </div>
-            <div class="igroup" data-say="我今年秋天要申请北美的 tenure-track 助理教授，帮我把这些材料整理成一份英文学术简历。">
+            <div class="igroup" data-say="帮我写开题报告，按学院的模板要求来。">
+              <p class="srcs">开题想法.md · 已读文献.md · 学院模板要求.md</p>
+              <p class="said"><span class="typed"></span><span class="caret"></span></p>
+            </div>
+            <div class="igroup" data-say="我想改投 ACL 2026，帮我把论文从 LNCS 模板换成 ACL 的模板。">
+              <p class="srcs">main.tex · figures/ · eccv.sty</p>
+              <p class="said"><span class="typed"></span><span class="caret"></span></p>
+            </div>
+            <div class="igroup" data-say="下周 ISSTA 要做 15 分钟的报告，帮我用这篇论文做一套会议幻灯片。">
+              <p class="srcs">main.tex · figures/ · results/</p>
+              <p class="said"><span class="typed"></span><span class="caret"></span></p>
+            </div>
+            <div class="igroup" data-say="会议有海报环节，帮我把这篇论文做成一张 A0 竖版的学术海报。">
+              <p class="srcs">main.tex · figures/</p>
+              <p class="said"><span class="typed"></span><span class="caret"></span></p>
+            </div>
+            <div class="igroup" data-say="我今年秋天要申请北美的 tenure-track 助理教授，帮我整理成一份英文学术简历。">
               <p class="srcs">notes.md · old_cv.txt · pubs.bib</p>
+              <p class="said"><span class="typed"></span><span class="caret"></span></p>
+            </div>
+            <div class="igroup" data-say="我准备投 ISSTA 2026 了，投稿前帮我检查一下。">
+              <p class="srcs">main.tex · references.bib · 投稿要求.md</p>
+              <p class="said"><span class="typed"></span><span class="caret"></span></p>
+            </div>
+            <div class="igroup" data-say="正文限 12 页，现在超了。帮我压到 12 页以内，不要删数字和结论。">
+              <p class="srcs">main.tex · figures/ · eccv.sty</p>
+              <p class="said"><span class="typed"></span><span class="caret"></span></p>
+            </div>
+            <div class="igroup" data-say="老师说读起来 AI 味太重，帮我去一下 AI 味，意思和数字都别变。">
+              <p class="srcs">main.tex · data/ · figures/</p>
+              <p class="said"><span class="typed"></span><span class="caret"></span></p>
+            </div>
+            <div class="igroup" data-say="帮我把论文初稿换成学校的模板格式。">
+              <p class="srcs">论文初稿.docx · 学校模板.docx · 格式要求.md</p>
               <p class="said"><span class="typed"></span><span class="caret"></span></p>
             </div>
             <div class="igroup" data-say="这是我统计学课的大作业要求和数据，先帮我粗写一版报告。">
@@ -951,8 +983,24 @@ var STRINGS = {
         say:  "收到大修意见了，帮我改稿并写修改说明（逐条回复）。" },
       { srcs: "研究想法.md · 前期工作.md · 申请要求.md",
         say:  "我明年要报国自然面上项目，帮我把这些材料写成申请书的正文。" },
+      { srcs: "开题想法.md · 已读文献.md · 学院模板要求.md",
+        say:  "帮我写开题报告，按学院的模板要求来。" },
+      { srcs: "main.tex · figures/ · eccv.sty",
+        say:  "我想改投 ACL 2026，帮我把论文从 LNCS 模板换成 ACL 的模板。" },
+      { srcs: "main.tex · figures/ · results/",
+        say:  "下周 ISSTA 要做 15 分钟的报告，帮我用这篇论文做一套会议幻灯片。" },
+      { srcs: "main.tex · figures/",
+        say:  "会议有海报环节，帮我把这篇论文做成一张 A0 竖版的学术海报。" },
       { srcs: "notes.md · old_cv.txt · pubs.bib",
-        say:  "我今年秋天要申请北美的 tenure-track 助理教授，帮我把这些材料整理成一份英文学术简历。" },
+        say:  "我今年秋天要申请北美的 tenure-track 助理教授，帮我整理成一份英文学术简历。" },
+      { srcs: "main.tex · references.bib · 投稿要求.md",
+        say:  "我准备投 ISSTA 2026 了，投稿前帮我检查一下。" },
+      { srcs: "main.tex · figures/ · eccv.sty",
+        say:  "正文限 12 页，现在超了。帮我压到 12 页以内，不要删数字和结论。" },
+      { srcs: "main.tex · data/ · figures/",
+        say:  "老师说读起来 AI 味太重，帮我去一下 AI 味，意思和数字都别变。" },
+      { srcs: "论文初稿.docx · 学校模板.docx · 格式要求.md",
+        say:  "帮我把论文初稿换成学校的模板格式。" },
       { srcs: "作业要求.md · 评分标准.md · bike_daily.csv",
         say:  "这是我统计学课的大作业要求和数据，先帮我粗写一版报告。" },
     ],
@@ -1035,10 +1083,22 @@ var STRINGS = {
         say:  "The first three chapters are done. Now I need Chapter 4, Experiments and Analysis." },
       { srcs: "data/ · code/ · results/ · notes.md",
         say:  "Please write it up as a NeurIPS 2026 paper." },
+      { srcs: "main.tex · reviews.md · extra_data.md",
+        say:  "Major revision came back. Please revise the paper and write the response letter." },
       { srcs: "notes.md · preliminary/ · prior_work.md · cv.md",
         say:  "I'm applying for an NSF CAREER award. Please write the Project Summary and Project Description." },
+      { srcs: "main.tex · figures/ · eccv.sty",
+        say:  "I'm switching to ACL 2026. Please move the paper from the LNCS template to ACL's." },
+      { srcs: "main.tex · figures/ · results/",
+        say:  "I have a 15-minute talk at ISSTA next week. Please make the conference slides from this paper." },
+      { srcs: "main.tex · figures/",
+        say:  "There's a poster session. Please turn this paper into an A0 portrait poster." },
       { srcs: "notes.md · old_cv.txt · pubs.bib",
-        say:  "I'm applying for tenure-track assistant professor positions this fall. Please turn these materials into an academic CV." },
+        say:  "I'm applying for tenure-track assistant professor positions this fall. Please turn these into an academic CV." },
+      { srcs: "main.tex · references.bib · submission_guide.md",
+        say:  "I'm about to submit to ISSTA 2026. Please run the pre-submission checks." },
+      { srcs: "main.tex · figures/ · eccv.sty",
+        say:  "The limit is 12 pages and I'm over. Please cut it down without dropping numbers or conclusions." },
       { srcs: "assignment_brief.md",
         say:  "Here's my literature review assignment brief. Please write the review for me." },
       { srcs: "lab_notes.txt · pendulum_data.csv · report_template.md",
@@ -1361,7 +1421,7 @@ var STRINGS = {
   var typer = (function(){
     var stage  = document.getElementById('stage');
     var WIDE   = /[⺀-鿿　-〿＀-￯]/;   /* Han + CJK punctuation */
-    var IN = 300, HOLD = 2000, OUT = 500;
+    var IN = 300, HOLD = 1500, OUT = 450;
     var groups, spans, says, plans;
     /* cumulative time at which each character has landed */
     function plan(s){
