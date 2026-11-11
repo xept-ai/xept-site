@@ -39,19 +39,19 @@ mkdir -p "$SITE"
   printf '\n'
   cat <<'HEAD'
 <meta name="description" content="装在你电脑上的学术写作工具：把你的材料和数据，写成能交出去的 Word 或 LaTeX 稿。免费，开源，不需要注册。">
-<link rel="canonical" href="https://xept.online/">
+<link rel="canonical" href="https://xept.pages.dev/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Xept">
 <meta property="og:title" content="Xept — 伴你写作">
 <meta property="og:description" content="装在你电脑上的学术写作工具：把你的材料和数据，写成能交出去的 Word 或 LaTeX 稿。免费，开源，不需要注册。">
-<meta property="og:url" content="https://xept.online/">
-<meta property="og:image" content="https://xept.online/og.png">
+<meta property="og:url" content="https://xept.pages.dev/">
+<meta property="og:image" content="https://xept.pages.dev/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Xept — 伴你写作">
 <meta name="twitter:description" content="装在你电脑上的学术写作工具：把你的材料和数据，写成能交出去的 Word 或 LaTeX 稿。免费，开源，不需要注册。">
-<meta name="twitter:image" content="https://xept.online/og.png">
+<meta name="twitter:image" content="https://xept.pages.dev/og.png">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="icon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="icon-180.png">

@@ -474,9 +474,10 @@ h1{
 .why{
   flex:1 1 auto;
   min-height:0;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,auto);
+  column-gap:clamp(28px,4vw,64px);
+  align-content:center;
   gap:clamp(14px,3.4vh,40px);
   padding-left:var(--gutter-l);
   padding-right:var(--gutter-r);
@@ -498,6 +499,42 @@ h1{
   font-size:clamp(13px,1vw,15.5px);
   line-height:1.6;
 }
+.why > *{grid-column:1;min-width:0}
+.contact{grid-column:2;grid-row:1 / -1;align-self:center;min-width:0}
+.contact h3{
+  margin:0 0 clamp(10px,1.4vh,16px);
+  font-family:var(--mono);
+  font-size:clamp(10.5px,.76vw,12px);
+  font-weight:400;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.qrs{display:flex;gap:clamp(12px,1.4vw,20px)}
+.qrs figure{margin:0;min-width:0}
+.qrs img{
+  display:block;
+  width:clamp(96px,8.4vw,124px);
+  height:auto;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:4px;
+  padding:5px;
+}
+.qrs figcaption{
+  margin-top:7px;
+  max-width:clamp(96px,8.4vw,124px);
+  color:var(--muted);
+  font-size:clamp(11px,.8vw,12.5px);
+  line-height:1.45;
+}
+.contact-line{margin:clamp(12px,1.6vh,18px) 0 0}
+@media (max-width:760px){
+  .why{grid-template-columns:minmax(0,1fr)}
+  .contact{grid-column:1;grid-row:auto}
+}
+/* 英文页只留 GitHub 那条：微信和小红书是中文渠道 */
+html[lang="en"] .qrs{display:none}
 .lead + .lead{margin-top:clamp(8px,1.1vh,13px)}
 /* the opening paragraph carries the argument, so it gets the weight */
 /* the letter types itself in; everything under it waits for the last character */
@@ -763,19 +800,19 @@ html[lang="en"] .lead--open{max-width:68ch}
 }
 </style>
 <meta name="description" content="装在你电脑上的学术写作工具：把你的材料和数据，写成能交出去的 Word 或 LaTeX 稿。免费，开源，不需要注册。">
-<link rel="canonical" href="https://xept.online/">
+<link rel="canonical" href="https://xept.pages.dev/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Xept">
 <meta property="og:title" content="Xept — 伴你写作">
 <meta property="og:description" content="装在你电脑上的学术写作工具：把你的材料和数据，写成能交出去的 Word 或 LaTeX 稿。免费，开源，不需要注册。">
-<meta property="og:url" content="https://xept.online/">
-<meta property="og:image" content="https://xept.online/og.png">
+<meta property="og:url" content="https://xept.pages.dev/">
+<meta property="og:image" content="https://xept.pages.dev/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Xept — 伴你写作">
 <meta name="twitter:description" content="装在你电脑上的学术写作工具：把你的材料和数据，写成能交出去的 Word 或 LaTeX 稿。免费，开源，不需要注册。">
-<meta name="twitter:image" content="https://xept.online/og.png">
+<meta name="twitter:image" content="https://xept.pages.dev/og.png">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="icon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -935,6 +972,21 @@ html[lang="en"] .lead--open{max-width:68ch}
         </li>
       </ul>
 
+      <aside class="contact reveal">
+        <h3 data-i18n="contactHeading">联系我们</h3>
+        <div class="qrs">
+          <figure>
+            <img src="assets/qr-wechat.jpg" width="600" height="600" loading="lazy" decoding="async" alt="微信群二维码">
+            <figcaption data-i18n="contactWechat">微信扫码进群</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/qr-xhs.jpg" width="600" height="600" loading="lazy" decoding="async" alt="小红书二维码">
+            <figcaption data-i18n="contactXhs">小红书扫码，或搜 枫@Xzz</figcaption>
+          </figure>
+        </div>
+        <p class="contact-line"><a class="more" rel="noopener" data-i18n="contactIssue" href="https://github.com/xept-ai/xept-desktop-releases/issues">报个问题 →</a></p>
+      </aside>
+
       <section class="block reveal">
         <h3 data-i18n="tagsHeading">它能写这些</h3>
         <ul class="tags" id="tags">
@@ -1073,6 +1125,10 @@ var STRINGS = {
       { h: "开放平台",
         p: "Xept 支持自定义 skill，内置推荐了网上公认优秀的科研 skills。代码未来也会公开，欢迎一起维护。" },
     ],
+    contactHeading: "联系我们",
+    contactWechat: "微信扫码进群",
+    contactXhs: "小红书扫码，或搜 枫@Xzz",
+    contactIssue: "报个问题 →",
     tagsHeading: "它能写这些",
     tags: [
       "期刊论文", "会议论文", "学位论文章节",
@@ -1171,6 +1227,10 @@ var STRINGS = {
       { h: "An open platform",
         p: "Xept runs your own skills, and ships with a recommended set of the research skills the community rates highly. The code will be public too, so you can help maintain it." },
     ],
+    contactHeading: "Contact",
+    contactWechat: "Scan with WeChat to join the group",
+    contactXhs: "Scan with RedNote, or search 枫@Xzz",
+    contactIssue: "Report an issue →",
     tagsHeading: "What it writes",
     tags: [
       "Journal papers", "Conference papers", "Thesis chapters",
