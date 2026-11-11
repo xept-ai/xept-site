@@ -192,7 +192,7 @@ h1{
   flex-wrap:wrap;
   align-items:center;
   gap:10px;
-  margin:0 0 clamp(10px,1.5vh,16px);
+  margin:0;
 }
 .btn{
   display:inline-flex;
@@ -213,7 +213,8 @@ h1{
 }
 .btn--primary{background:var(--accent);color:var(--on-accent)}
 .ver{font-size:12.5px;color:var(--muted);font-family:var(--mono)}
-/* the quiet "all versions" link that sits on the download row, same voice as .hint a */
+/* "all versions" always sits on its own line under the buttons, never beside them */
+.moreline{margin:2px 0 0}
 .more{
   display:inline-flex;
   align-items:center;
@@ -804,8 +805,8 @@ html[lang="en"] .lead--open{max-width:68ch}
             <a class="btn" data-os="win" rel="noopener" href="https://github.com/xept-ai/xept-desktop-releases/releases/download/v0.4.1/Xept-0.4.1-win-x64-setup.exe">Windows</a>
             <a class="btn" data-os="linux" rel="noopener" href="https://github.com/xept-ai/xept-desktop-releases/releases/download/v0.4.1/Xept-0.4.1-linux-x86_64.AppImage">Linux</a>
             <span class="ver mono">0.4.1</span>
-            <a class="more" data-i18n="allVersions" rel="noopener" href="https://github.com/xept-ai/xept-desktop-releases/releases/latest">所有版本与安装说明</a>
           </div>
+          <p class="moreline"><a class="more" data-i18n="allVersions" rel="noopener" href="https://github.com/xept-ai/xept-desktop-releases/releases/latest">所有版本与安装说明</a></p>
         </section>
 
         <p class="hint"><a href="#why"><span class="rule" aria-hidden="true"></span><span data-i18n="downHint">致科研人的一封信</span><span class="arr" aria-hidden="true">↓</span></a></p>
