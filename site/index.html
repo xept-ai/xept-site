@@ -593,16 +593,6 @@ h1{
   min-width:0;
 }
 .notes li::before{content:"";position:absolute;left:0;top:.62em;width:4px;height:1px;background:var(--muted)}
-.close-out{
-  display:flex;
-  flex-wrap:wrap;
-  align-items:center;
-  gap:14px;
-  border-top:1px solid var(--line);
-  padding-top:clamp(12px,1.8vh,22px);
-}
-.close-out p{margin:0;color:var(--muted);font-size:clamp(12px,.88vw,13.5px)}
-
 /* ---------- lightbox ---------- */
 .lb{
   position:fixed;
@@ -630,7 +620,7 @@ h1{
 .lb-fig img{
   max-width:100%;
   height:100%;
-  max-height:920px;
+  max-height:1400px;
   width:auto;
   min-height:0;
   object-fit:contain;
@@ -889,9 +879,9 @@ html[lang="en"] .lead--open{max-width:68ch}
       <header>
         <h2 data-i18n="letterHeading">致科研人的一封信</h2>
         <div class="letter" id="letter">
-        <p class="lead lead--open">写论文有很大一部分是机械劳动：套格式、对参考文献、回审稿意见、把同一个数字在五个地方改一遍。这些活必须有人做，但不必由你做。</p>
-        <p class="lead">我们想把这部分交给机器，让你的时间回到科研本身：提出问题、设计实验、读懂数据，去探索那些还没有答案的问题。这也是我们的老本行。我们是计算机软件工程出身，本职就是做软件的自动化，现在把它用到科研和写作上。</p>
-        <p class="lead">所以 Xept 免费给大家用，也希望你愿意一起维护它、把它讲给身边的人。</p>
+        <p class="lead lead--open">学术写作有很大一部分是机械劳动：套格式、对参考文献、回审稿意见、把同一个数字在五个地方改一遍。这些事总要做，但不该占去你这么多时间。我们想把这部分交给 AI，让你的时间回到科研本身：去探索那些还没有答案的问题，去抓住某个灵光一闪的时刻，去为人类科技进步作出那最关键的一步贡献。</p>
+        <p class="lead">我们团队成员是计算机软件工程出身，一直在研究怎么让 AI 稳定可靠地完成实际工作，现在把这些技术用到科研和写作上，希望更多科研人都能用得上，所以 Xept 会长期免费向大家开放。</p>
+        <p class="lead">如果你觉得好用，欢迎把它介绍给身边的人；如果有哪里不好用，也请告诉我们，一起把它做得更好。</p>
         <p class="sign mono" data-i18n="sign">—— Xept 团队</p>
         </div>
       </header>
@@ -899,47 +889,46 @@ html[lang="en"] .lead--open{max-width:68ch}
       <ul class="reasons reveal">
         <li>
           <h3>装在你自己的电脑上</h3>
-          <p>你的数据不出本机。它还能在本地直接跑 Python 脚本，处理你的数据、画你的图。</p>
+          <p>你的数据只经过你指定的模型商。它还能在本地直接跑 Python 脚本，处理你的数据、画你的图。</p>
         </li>
         <li>
           <h3>有 token 就能接入</h3>
           <p>填上你自己的 Claude、OpenAI、DeepSeek、Kimi、GLM 或 OpenRouter 的 key，就能开始用。</p>
         </li>
         <li>
-          <h3>会开源</h3>
-          <p>Xept 的代码会公开，欢迎一起维护。</p>
+          <h3>开放平台</h3>
+          <p>Xept 支持自定义 skill，内置推荐了网上公认优秀的科研 skills。代码未来也会公开，欢迎一起维护。</p>
         </li>
       </ul>
 
       <section class="block reveal">
-        <h3 data-i18n="tagsHeading">它还能写这些</h3>
+        <h3 data-i18n="tagsHeading">它能写这些</h3>
         <ul class="tags" id="tags">
+          <li>期刊论文</li>
+          <li>会议论文</li>
           <li>学位论文章节</li>
-          <li>NSF 与 NIH 申请书</li>
-          <li>ERC 申请书</li>
-          <li>国自然面上</li>
           <li>开题报告</li>
-          <li>会议幻灯片</li>
-          <li>A0 海报</li>
+          <li>课程作业</li>
+          <li>实验报告</li>
+          <li>文献综述</li>
+          <li>案例分析</li>
+          <li>科研项目申请书</li>
           <li>学术简历</li>
-          <li>会议 rebuttal</li>
-          <li>期刊 response letter</li>
+          <li>学术海报</li>
+          <li>会议幻灯片</li>
+          <li>审稿回复与 rebuttal</li>
           <li>期刊返修</li>
-          <li>中译英</li>
-          <li>去 AI 味</li>
-          <li>压到页数限制</li>
-          <li>换会议模板</li>
-          <li>按学校格式排 Word</li>
-          <li>三线表与数据图</li>
           <li>投稿前检查</li>
           <li>文献检索与 bib 条目</li>
+          <li>三线表与数据图</li>
+          <li>按学校格式排 Word</li>
+          <li>换会议模板</li>
+          <li>压到页数限制</li>
+          <li>中译英</li>
+          <li>去 AI 味</li>
         </ul>
       </section>
 
-      <div class="close-out reveal">
-        <a class="btn btn--primary" id="dl-main" data-i18n="cta" rel="noopener" href="https://github.com/xept-ai/xept-desktop-releases/releases/download/v0.4.1/Xept-0.4.1-mac-arm64.dmg">下载 Xept 0.4.1</a>
-        <p data-i18n="ctaNote">装上打开就能写，不用注册账号。</p>
-      </div>
     </div>
   </section>
 </main>
@@ -1020,31 +1009,30 @@ var STRINGS = {
     /* screen 2 */
     letterHeading: "致科研人的一封信",
     letter: [
-      "写论文有很大一部分是机械劳动：套格式、对参考文献、回审稿意见、把同一个数字在五个地方改一遍。这些活必须有人做，但不必由你做。",
-      "我们想把这部分交给机器，让你的时间回到科研本身：提出问题、设计实验、读懂数据，去探索那些还没有答案的问题。这也是我们的老本行。我们是计算机软件工程出身，本职就是做软件的自动化，现在把它用到科研和写作上。",
-      "所以 Xept 免费给大家用，也希望你愿意一起维护它、把它讲给身边的人。",
+      "学术写作有很大一部分是机械劳动：套格式、对参考文献、回审稿意见、把同一个数字在五个地方改一遍。这些事总要做，但不该占去你这么多时间。我们想把这部分交给 AI，让你的时间回到科研本身：去探索那些还没有答案的问题，去抓住某个灵光一闪的时刻，去为人类科技进步作出那最关键的一步贡献。",
+      "我们团队成员是计算机软件工程出身，一直在研究怎么让 AI 稳定可靠地完成实际工作，现在把这些技术用到科研和写作上，希望更多科研人都能用得上，所以 Xept 会长期免费向大家开放。",
+      "如果你觉得好用，欢迎把它介绍给身边的人；如果有哪里不好用，也请告诉我们，一起把它做得更好。",
     ],
     sign: "—— Xept 团队",
     cards: [
       { h: "装在你自己的电脑上",
-        p: "你的数据不出本机。它还能在本地直接跑 Python 脚本，处理你的数据、画你的图。" },
+        p: "你的数据只经过你指定的模型商。它还能在本地直接跑 Python 脚本，处理你的数据、画你的图。" },
       { h: "有 token 就能接入",
         p: "填上你自己的 Claude、OpenAI、DeepSeek、Kimi、GLM 或 OpenRouter 的 key，就能开始用。" },
-      { h: "会开源",
-        p: "Xept 的代码会公开，欢迎一起维护。" },
+      { h: "开放平台",
+        p: "Xept 支持自定义 skill，内置推荐了网上公认优秀的科研 skills。代码未来也会公开，欢迎一起维护。" },
     ],
-    tagsHeading: "它还能写这些",
+    tagsHeading: "它能写这些",
     tags: [
-      "学位论文章节", "NSF 与 NIH 申请书", "ERC 申请书",
-      "国自然面上", "开题报告", "会议幻灯片",
-      "A0 海报", "学术简历", "会议 rebuttal",
-      "期刊 response letter", "期刊返修", "中译英",
-      "去 AI 味", "压到页数限制", "换会议模板",
-      "按学校格式排 Word", "三线表与数据图", "投稿前检查",
-      "文献检索与 bib 条目",
+      "期刊论文", "会议论文", "学位论文章节",
+      "开题报告", "课程作业", "实验报告",
+      "文献综述", "案例分析", "科研项目申请书",
+      "学术简历", "学术海报", "会议幻灯片",
+      "审稿回复与 rebuttal", "期刊返修", "投稿前检查",
+      "文献检索与 bib 条目", "三线表与数据图", "按学校格式排 Word",
+      "换会议模板", "压到页数限制", "中译英",
+      "去 AI 味",
     ],
-    cta: "下载 Xept 0.4.1",
-    ctaNote: "装上打开就能写，不用注册账号。",
 
     /* chrome */
     lbClose: "关闭 ✕",
@@ -1107,31 +1095,30 @@ var STRINGS = {
     /* screen 2 */
     letterHeading: "A letter to researchers",
     letter: [
-      "A large part of writing a paper is mechanical work: fixing the formatting, checking references one by one, answering reviewers point by point, changing the same number in five different places. Someone has to do it. It doesn't have to be you.",
-      "We want to hand that part to a machine, so your time goes back to the research itself: asking the question, designing the experiment, understanding the data, going after the problems that have no answer yet. This is also our day job. We come from software engineering, where automating work is what we do, and we are now pointing it at research and writing.",
-      "So Xept is free to use. We hope you will help maintain it, and tell the people around you about it.",
+      "A large part of academic writing is mechanical work: fixing the formatting, checking references one by one, answering reviewers point by point, changing the same number in five different places. It all has to be done, but it should not take up this much of your time. We want to hand that part to AI, so your time goes back to the research itself: to the questions that have no answer yet, to the flash of insight when it comes, to the one step that moves human knowledge forward.",
+      "Our team comes from software engineering. We have spent our time working out how to make AI do real work reliably, and we are now pointing that at research and writing. We want it in the hands of as many researchers as possible, so Xept will stay free.",
+      "If you find it useful, tell the people around you. If something does not work, tell us, and we will make it better together.",
     ],
     sign: "— The Xept team",
     cards: [
       { h: "Runs on your own computer",
-        p: "Your data never leaves the machine. It can also run Python scripts locally to process your data and draw your figures." },
+        p: "Your data only goes to the model provider you choose. It can also run Python scripts locally to process your data and draw your figures." },
       { h: "Bring your own tokens",
         p: "Paste in your own Claude, OpenAI, DeepSeek, Kimi, GLM or OpenRouter key and you are running." },
-      { h: "It will be open source",
-        p: "The code will be public. Help maintain it." },
+      { h: "An open platform",
+        p: "Xept runs your own skills, and ships with a recommended set of the research skills the community rates highly. The code will be public too, so you can help maintain it." },
     ],
-    tagsHeading: "It also writes these",
+    tagsHeading: "What it writes",
     tags: [
-      "Thesis chapters", "NSF and NIH proposals", "ERC proposals",
-      "NSFC general program", "Proposal defenses", "Conference slides",
-      "A0 posters", "Academic CVs", "Conference rebuttals",
-      "Response letters", "Journal revisions", "Chinese to English",
-      "Removing the AI tone", "Cutting to the page limit", "Switching conference templates",
-      "Word to your school's format", "Booktabs tables and data figures", "Pre-submission checks",
-      "Literature search and bib entries",
+      "Journal papers", "Conference papers", "Thesis chapters",
+      "Thesis proposals", "Course assignments", "Lab reports",
+      "Literature reviews", "Case studies", "Grant proposals",
+      "Academic CVs", "Academic posters", "Conference slides",
+      "Rebuttals and response letters", "Journal revisions", "Pre-submission checks",
+      "Literature search and bib entries", "Booktabs tables and data figures", "Word to your school's format",
+      "Switching conference templates", "Cutting to the page limit", "Chinese to English",
+      "Removing the AI tone",
     ],
-    cta: "Download Xept 0.4.1",
-    ctaNote: "Install it, open it, start writing. No account needed.",
 
     /* chrome */
     lbClose: "Close ✕",
@@ -1529,12 +1516,26 @@ var STRINGS = {
   var opener = null;
   var wasPaused = false;
 
+  /* The wall carries 760px-tall thumbnails. Enlarged, those are soft, so the lightbox
+     shows the thumbnail at once (it is already cached, so there is no blank frame) and
+     swaps in the 1700px copy from assets/lg/ when that arrives. A missing large copy
+     just never swaps, and the reader keeps the thumbnail. */
+  var lbSeq = 0;
   function open(btn){
     var img = btn.querySelector('img');
     if (!img) return;
     opener = btn;
     wasPaused = wall.classList.contains('is-paused');
-    lbImg.src = img.getAttribute('src');
+    var small = img.getAttribute('src');
+    lbImg.src = small;
+    var big = small.replace(/([^\/]+)$/, 'lg/$1');
+    if (big !== small){
+      var mine = ++lbSeq, pre = new Image();
+      pre.onload = function(){
+        if (mine === lbSeq && !lb.hidden) lbImg.src = big;
+      };
+      pre.src = big;
+    }
     lbImg.alt = img.getAttribute('alt') || '';
     lbCap.textContent = btn.getAttribute('data-cap') || '';
     lb.hidden = false;
