@@ -767,24 +767,27 @@ html[lang="en"] .qrs{display:none}
   right:calc(12px + env(safe-area-inset-right, 0px));
   z-index:40;                /* over the wall, under the lightbox (50) */
   align-items:center;
-  gap:8px;
+  gap:6px;
 }
 .chrome.is-on{display:flex}
 .ic{
+  position:relative;
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  width:44px;
-  height:44px;
+  width:34px;
+  height:34px;
   padding:0;
   border:1px solid var(--line);
-  border-radius:999px;
+  border-radius:3px;            /* 和下载按钮同一个圆角 */
   background:var(--bg);
   color:var(--muted);
   cursor:pointer;
   transition:color .14s ease, border-color .14s ease;
 }
-.ic svg{width:17px;height:17px;display:block}
+.ic svg{width:15px;height:15px;display:block}
+/* 看着小，点击区仍然 44px：往外撑一圈透明的热区 */
+.ic::after,.seg-b::after{content:"";position:absolute;inset:-5px}
 .ic .ic-ok{display:none}
 .ic.is-done{color:var(--accent);border-color:var(--accent)}
 .ic.is-done .ic-share{display:none}
@@ -793,24 +796,25 @@ html[lang="en"] .qrs{display:none}
 .seg{
   display:inline-flex;
   align-items:stretch;
-  height:44px;
-  padding:3px;
+  height:34px;
+  padding:2px;
   border:1px solid var(--line);
-  border-radius:999px;
+  border-radius:3px;
   background:var(--bg);
 }
 .seg-b{
+  position:relative;
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  min-width:40px;
-  padding:0 12px;
+  min-width:34px;
+  padding:0 9px;
   border:0;
-  border-radius:999px;
+  border-radius:2px;
   background:none;
   color:var(--muted);
   font-family:var(--mono);
-  font-size:12px;
+  font-size:11.5px;
   font-weight:500;
   letter-spacing:.06em;
   line-height:1;
