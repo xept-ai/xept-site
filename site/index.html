@@ -1417,7 +1417,7 @@ var STRINGS = {
     onLang: function(fn){ if (typeof fn === 'function') listeners.push(fn); }
   };
 
-  /* 分享：能调系统分享面板就调（手机上面板里有微信），不能就复制链接。
+  /* 分享：桌面一律复制链接并把按钮变成"已复制"；手机调系统分享面板（面板里有微信）。
      微信的网页分享要公众号 JS-SDK，没有公众号就做不了"一键发微信"，复制粘贴是实际路径。 */
   var shareBtn = document.getElementById('sharebtn');
   if (shareBtn){
@@ -1434,7 +1434,11 @@ var STRINGS = {
           shareBtn.classList.remove('is-done');
         }, 1800);
       };
-      if (navigator.share){
+      /* 只有触屏设备才调系统分享面板（面板里有微信）；桌面一律复制链接，
+         因为桌面的分享面板多半是空的或者只有邮件，不如直接给链接。 */
+      var touch = (window.matchMedia && window.matchMedia('(pointer: coarse)').matches)
+                  || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent || '');
+      if (navigator.share && touch){
         navigator.share({ title: S.title, text: S.sub, url: url }).then(function(){}, function(){});
         return;
       }
