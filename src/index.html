@@ -765,6 +765,22 @@ html[lang="en"] .qrs{display:none}
   gap:6px;
 }
 .chrome.is-on{display:flex}
+.copied{
+  position:absolute;
+  right:100%;
+  top:50%;
+  transform:translateY(-50%);
+  margin-right:8px;
+  white-space:nowrap;
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.04em;
+  color:var(--accent);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .16s ease;
+}
+.copied.is-on{opacity:1}
 .ic{
   position:relative;
   display:inline-flex;
@@ -842,6 +858,7 @@ html[lang="en"] .lead--open{max-width:68ch}
 </style>
 
 <div class="chrome" id="chrome">
+  <span class="copied mono" id="copied" role="status" aria-live="polite"></span>
   <button type="button" class="ic" id="sharebtn" title="分享这个页面" aria-label="分享这个页面">
     <svg class="ic-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"></path><path d="m8 7 4-4 4 4"></path><path d="M4 13v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"></path></svg>
     <svg class="ic-ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4L19 7"></path></svg>
@@ -1447,15 +1464,18 @@ var STRINGS = {
       var S = STRINGS[cur] || STRINGS.zh;
       /* 分享的是该语言自己的地址，不是带 ?lang= 的那个 */
       var url = location.origin + (cur === 'en' ? '/en/' : '/');
+      var tip = document.getElementById('copied');
       var done = function(){
         shareBtn.classList.add('is-done');          /* 图标换成对勾，宽度不变 */
         shareBtn.setAttribute('title', S.shareDone);
         shareBtn.setAttribute('aria-label', S.shareDone);
+        if (tip){ tip.textContent = S.shareDone; tip.classList.add('is-on'); }
         setTimeout(function(){
           var S2 = STRINGS[cur] || STRINGS.zh;
           shareBtn.classList.remove('is-done');
           shareBtn.setAttribute('title', S2.shareTitle);
           shareBtn.setAttribute('aria-label', S2.shareTitle);
+          if (tip){ tip.classList.remove('is-on'); }
         }, 1800);
       };
       /* 只有触屏设备才调系统分享面板（面板里有微信）；桌面一律复制链接，
