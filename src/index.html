@@ -1341,6 +1341,8 @@ var STRINGS = {
     var m = /[?&]lang=([^&#]*)/.exec(location.search || '');
     var q = m ? decodeURIComponent(m[1]) : null;
     if (q === 'en' || q === 'zh') return q;
+    /* /en/ 这个地址本身就是英文版（它的分享卡片也是英文的） */
+    if (/^\/en(\/|$)/.test(location.pathname || '')) return 'en';
     var st = null;
     try { st = localStorage.getItem(KEY); } catch(e){}
     if (st === 'en' || st === 'zh') return st;

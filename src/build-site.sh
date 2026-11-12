@@ -40,6 +40,8 @@ mkdir -p "$SITE"
   cat <<'HEAD'
 <meta name="description" content="装在你电脑上的学术写作工具：把你的材料和数据，写成能交出去的 Word 或 LaTeX 稿。免费，开源，不需要注册。">
 <link rel="canonical" href="https://xept.pages.dev/">
+<link rel="alternate" hreflang="zh" href="https://xept.pages.dev/">
+<link rel="alternate" hreflang="en" href="https://xept.pages.dev/en/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Xept">
 <meta property="og:title" content="Xept — 伴你写作">
@@ -64,10 +66,52 @@ HEAD
   printf '</body>\n</html>\n'
 } > "$SITE/index.html"
 
+# ---- /en/index.html : same page, English head, English share card -------
+# 同一份内容，只换 <head> 里的分享信息；<base> 让相对路径仍指向站根。
+mkdir -p "$SITE/en"
+{
+  printf '<!doctype html>\n'
+  printf '<html lang="en">\n'
+  printf '<head>\n'
+  printf '<meta charset="utf-8">\n'
+  printf '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
+  printf '<base href="/">\n'
+  head -c "$end" "$SRC"
+  printf '\n'
+  cat <<'HEADEN'
+<meta name="description" content="An academic writing tool that runs on your own computer. It turns your materials and data into a Word or LaTeX draft you can hand in. Free, no account needed.">
+<link rel="canonical" href="https://xept.pages.dev/en/">
+<link rel="alternate" hreflang="zh" href="https://xept.pages.dev/">
+<link rel="alternate" hreflang="en" href="https://xept.pages.dev/en/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Xept">
+<meta property="og:title" content="Xept — Writing, with you">
+<meta property="og:description" content="An academic writing tool that runs on your own computer. It turns your materials and data into a Word or LaTeX draft you can hand in. Free, no account needed.">
+<meta property="og:url" content="https://xept.pages.dev/en/">
+<meta property="og:image" content="https://xept.pages.dev/og-en.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Xept — Writing, with you">
+<meta name="twitter:description" content="An academic writing tool that runs on your own computer. It turns your materials and data into a Word or LaTeX draft you can hand in. Free, no account needed.">
+<meta name="twitter:image" content="https://xept.pages.dev/og-en.png">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="icon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="fonts/inter-600.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="fonts/ibm-plex-mono-500.woff2">
+HEADEN
+  printf '</head>\n'
+  printf '<body>\n'
+  tail -c "+$(( end + 1 ))" "$SRC"
+  printf '</body>\n</html>\n'
+} > "$SITE/en/index.html"
+
 # ---- everything the page loads ------------------------------------------
 cp -R "$HERE/assets" "$SITE/assets"
 cp -R "$HERE/fonts"  "$SITE/fonts"
-cp "$HERE/og.png" "$HERE/favicon.svg" "$HERE/icon-180.png" "$HERE/icon-32.png" "$SITE/"
+cp "$HERE/og.png" "$HERE/og-en.png" "$HERE/favicon.svg" "$HERE/icon-180.png" "$HERE/icon-32.png" "$SITE/"
 
 # ---- what we wrote -------------------------------------------------------
 echo "wrote $SITE"
