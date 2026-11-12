@@ -1010,11 +1010,11 @@ html[lang="en"] .lead--open{max-width:68ch}
         <h3 data-i18n="contactHeading">联系我们</h3>
         <div class="qrs">
           <figure>
-            <img src="assets/qr-wechat.jpg" width="600" height="600" loading="lazy" decoding="async" alt="微信群二维码">
+            <img src="assets/qr-wechat.jpg" width="600" height="600" loading="lazy" decoding="async" data-i18n-alt="qrWechatAlt" alt="微信群二维码">
             <figcaption data-i18n="contactWechat">微信扫码进群</figcaption>
           </figure>
           <figure>
-            <img src="assets/qr-xhs.jpg" width="600" height="600" loading="lazy" decoding="async" alt="小红书二维码">
+            <img src="assets/qr-xhs.jpg" width="600" height="600" loading="lazy" decoding="async" data-i18n-alt="qrXhsAlt" alt="小红书二维码">
             <figcaption data-i18n="contactXhs">小红书扫码，或搜 枫@Xzz</figcaption>
           </figure>
         </div>
@@ -1132,6 +1132,8 @@ var STRINGS = {
       { h: "开放平台",
         p: "Xept 支持自定义 skill，内置推荐了网上公认优秀的科研 skills。代码未来也会公开，欢迎一起维护。" },
     ],
+    qrWechatAlt: "微信群二维码",
+    qrXhsAlt: "小红书二维码",
     contactHeading: "联系我们",
     contactWechat: "微信扫码进群",
     contactXhs: "小红书扫码，或搜 枫@Xzz",
@@ -1233,6 +1235,8 @@ var STRINGS = {
       { h: "An open platform",
         p: "Xept runs your own skills, and ships with a recommended set of the research skills the community rates highly. The code will be public too, so you can help maintain it." },
     ],
+    qrWechatAlt: "WeChat group QR code",
+    qrXhsAlt: "RedNote QR code",
     contactHeading: "Contact",
     contactWechat: "Scan with WeChat to join the group",
     contactXhs: "Scan with RedNote, or search 枫@Xzz",
@@ -1327,6 +1331,11 @@ var STRINGS = {
     for (i = 0; i < nodes.length; i++){
       k = nodes[i].getAttribute('data-i18n');
       if (S[k] != null) nodes[i].textContent = S[k];
+    }
+    nodes = document.querySelectorAll('[data-i18n-alt]');
+    for (i = 0; i < nodes.length; i++){
+      k = nodes[i].getAttribute('data-i18n-alt');
+      if (S[k] != null) nodes[i].setAttribute('alt', S[k]);
     }
     nodes = document.querySelectorAll('[data-i18n-html]');
     for (i = 0; i < nodes.length; i++){
