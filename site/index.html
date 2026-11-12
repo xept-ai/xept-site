@@ -757,32 +757,47 @@ html[lang="en"] .qrs{display:none}
 }
 /* ---------- 中 / EN ----------
    Hidden until the script turns it on: with no script there is nothing to switch to. */
-.langsw{
+/* 右上角两个动作合成一个胶囊：一圈描边、中间一道发丝线，而不是两个孤立的方框 */
+.chrome{
   display:none;
   position:fixed;
-  top:calc(10px + env(safe-area-inset-top, 0px));
-  right:calc(10px + env(safe-area-inset-right, 0px));
+  top:calc(12px + env(safe-area-inset-top, 0px));
+  right:calc(12px + env(safe-area-inset-right, 0px));
   z-index:40;                /* over the wall, under the lightbox (50) */
-  min-width:44px;
-  min-height:44px;
+  align-items:stretch;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:var(--bg);
+  box-shadow:0 1px 2px rgba(0,0,0,.04);
+  overflow:hidden;
+}
+.chrome.is-on{display:flex}
+.langsw{
+  display:inline-flex;
   align-items:center;
   justify-content:center;
-  padding:0 10px;
-  border:1px solid var(--line);
-  border-radius:3px;
-  background:var(--bg);
+  min-width:52px;
+  min-height:44px;
+  padding:0 14px;
+  border:0;
+  background:none;
   color:var(--muted);
   font-family:var(--mono);
   font-size:12px;
   font-weight:500;
   letter-spacing:.06em;
   line-height:1;
+  white-space:nowrap;
   cursor:pointer;
+  transition:background-color .14s ease, color .14s ease;
 }
-.langsw[data-on]{display:inline-flex}
-#sharebtn{right:calc(10px + 52px + env(safe-area-inset-right, 0px))}
-#sharebtn.is-done{color:var(--accent);border-color:var(--accent)}
-.langsw:hover,.langsw:focus-visible{color:var(--accent);border-color:var(--accent)}
+.langsw + .langsw{box-shadow:inset 1px 0 0 var(--line)}   /* 中间那道线，不占宽度 */
+.langsw:hover{color:var(--fg);background:var(--line)}
+.langsw:focus-visible{color:var(--accent);outline-offset:-2px}
+/* 「分享 → 已复制」字数会变，先占住较宽的那个，避免胶囊抖一下 */
+#sharebtn{min-width:72px}
+html[lang="en"] #sharebtn{min-width:96px}
+#sharebtn.is-done{color:var(--accent)}
 
 /* ---------- English fits ----------
    Only ever live while the script has set lang="en" on the root element: Chinese is
@@ -829,8 +844,10 @@ html[lang="en"] .lead--open{max-width:68ch}
 <body>
 
 
-<button type="button" class="langsw mono" id="sharebtn" data-i18n="shareLabel" title="分享这个页面" aria-label="分享这个页面">分享</button>
-<button type="button" class="langsw mono" id="langsw" lang="zh-CN" title="切换到 English" aria-label="切换到 English">中文</button>
+<div class="chrome" id="chrome">
+  <button type="button" class="langsw mono" id="sharebtn" data-i18n="shareLabel" title="分享这个页面" aria-label="分享这个页面">分享</button>
+  <button type="button" class="langsw mono" id="langsw" lang="zh-CN" title="切换到 English" aria-label="切换到 English">中文</button>
+</div>
 
 <main>
   <section class="screen" id="top" aria-labelledby="h1">
@@ -1421,7 +1438,8 @@ var STRINGS = {
      微信的网页分享要公众号 JS-SDK，没有公众号就做不了"一键发微信"，复制粘贴是实际路径。 */
   var shareBtn = document.getElementById('sharebtn');
   if (shareBtn){
-    shareBtn.setAttribute('data-on', '');
+    var bar1 = document.getElementById('chrome');
+    if (bar1) bar1.classList.add('is-on');
     shareBtn.addEventListener('click', function(){
       var S = STRINGS[cur] || STRINGS.zh;
       /* 分享的是该语言自己的地址，不是带 ?lang= 的那个 */
@@ -1457,7 +1475,8 @@ var STRINGS = {
   }
 
   if (sw){
-    sw.setAttribute('data-on', '');
+    var bar2 = document.getElementById('chrome');
+    if (bar2) bar2.classList.add('is-on');
     sw.addEventListener('click', function(){ set(cur === 'en' ? 'zh' : 'en'); });
   }
   apply(resolve(), true);
