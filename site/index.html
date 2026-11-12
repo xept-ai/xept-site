@@ -757,29 +757,56 @@ html[lang="en"] .qrs{display:none}
 }
 /* ---------- 中 / EN ----------
    Hidden until the script turns it on: with no script there is nothing to switch to. */
-/* 右上角两个动作合成一个胶囊：一圈描边、中间一道发丝线，而不是两个孤立的方框 */
+/* 右上角：一个图标按钮 + 一个语言分段控件。图标没有文字，所以不会因为
+   「分享 / Share」长短不同而两格不等宽；语言两档同时显示，当前的那档填色，
+   不用猜「点了是切到哪个」。 */
 .chrome{
   display:none;
   position:fixed;
   top:calc(12px + env(safe-area-inset-top, 0px));
   right:calc(12px + env(safe-area-inset-right, 0px));
   z-index:40;                /* over the wall, under the lightbox (50) */
-  align-items:stretch;
-  border:1px solid var(--line);
-  border-radius:999px;
-  background:var(--bg);
-  box-shadow:0 1px 2px rgba(0,0,0,.04);
-  overflow:hidden;
+  align-items:center;
+  gap:8px;
 }
 .chrome.is-on{display:flex}
-.langsw{
+.ic{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  min-width:52px;
-  min-height:44px;
-  padding:0 14px;
+  width:44px;
+  height:44px;
+  padding:0;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:var(--bg);
+  color:var(--muted);
+  cursor:pointer;
+  transition:color .14s ease, border-color .14s ease;
+}
+.ic svg{width:17px;height:17px;display:block}
+.ic .ic-ok{display:none}
+.ic.is-done{color:var(--accent);border-color:var(--accent)}
+.ic.is-done .ic-share{display:none}
+.ic.is-done .ic-ok{display:block}
+.ic:hover,.ic:focus-visible{color:var(--fg);border-color:var(--muted)}
+.seg{
+  display:inline-flex;
+  align-items:stretch;
+  height:44px;
+  padding:3px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:var(--bg);
+}
+.seg-b{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:40px;
+  padding:0 12px;
   border:0;
+  border-radius:999px;
   background:none;
   color:var(--muted);
   font-family:var(--mono);
@@ -787,17 +814,12 @@ html[lang="en"] .qrs{display:none}
   font-weight:500;
   letter-spacing:.06em;
   line-height:1;
-  white-space:nowrap;
   cursor:pointer;
   transition:background-color .14s ease, color .14s ease;
 }
-.langsw + .langsw{box-shadow:inset 1px 0 0 var(--line)}   /* 中间那道线，不占宽度 */
-.langsw:hover{color:var(--fg);background:var(--line)}
-.langsw:focus-visible{color:var(--accent);outline-offset:-2px}
-/* 「分享 → 已复制」字数会变，先占住较宽的那个，避免胶囊抖一下 */
-#sharebtn{min-width:72px}
-html[lang="en"] #sharebtn{min-width:96px}
-#sharebtn.is-done{color:var(--accent)}
+.seg-b:hover{color:var(--fg)}
+.seg-b[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.seg-b:focus-visible{outline-offset:-2px}
 
 /* ---------- English fits ----------
    Only ever live while the script has set lang="en" on the root element: Chinese is
@@ -845,8 +867,14 @@ html[lang="en"] .lead--open{max-width:68ch}
 
 
 <div class="chrome" id="chrome">
-  <button type="button" class="langsw mono" id="sharebtn" data-i18n="shareLabel" title="分享这个页面" aria-label="分享这个页面">分享</button>
-  <button type="button" class="langsw mono" id="langsw" lang="zh-CN" title="切换到 English" aria-label="切换到 English">中文</button>
+  <button type="button" class="ic" id="sharebtn" title="分享这个页面" aria-label="分享这个页面">
+    <svg class="ic-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"></path><path d="m8 7 4-4 4 4"></path><path d="M4 13v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"></path></svg>
+    <svg class="ic-ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 13 4 4L19 7"></path></svg>
+  </button>
+  <div class="seg" id="langseg" role="group" aria-label="语言 / Language">
+    <button type="button" class="seg-b mono" data-lang="zh" lang="zh-CN" aria-pressed="true">中</button>
+    <button type="button" class="seg-b mono" data-lang="en" lang="en" aria-pressed="false">EN</button>
+  </div>
 </div>
 
 <main>
@@ -1290,7 +1318,7 @@ var STRINGS = {
 
 (function(){
   var KEY = 'xept-lang';
-  var sw      = document.getElementById('langsw');
+  var sw      = document.getElementById('langseg');
   var stage   = document.getElementById('stage');
   var papers  = document.getElementById('papers');
   var tags    = document.getElementById('tags');
@@ -1328,10 +1356,10 @@ var STRINGS = {
   function chrome(S, lang){
     document.documentElement.lang = lang === 'en' ? 'en' : 'zh-CN';
     if (!sw) return;
-    sw.textContent = S.langLabel;
-    sw.setAttribute('aria-label', S.langAction);
-    sw.setAttribute('title', S.langAction);
-    sw.setAttribute('lang', lang === 'en' ? 'en' : 'zh-CN');
+    var segs = sw.querySelectorAll('[data-lang]'), i;
+    for (i = 0; i < segs.length; i++){
+      segs[i].setAttribute('aria-pressed', String(segs[i].getAttribute('data-lang') === lang));
+    }
     var sb = document.getElementById('sharebtn');
     if (sb && S.shareTitle){
       sb.setAttribute('title', S.shareTitle);
@@ -1445,11 +1473,14 @@ var STRINGS = {
       /* 分享的是该语言自己的地址，不是带 ?lang= 的那个 */
       var url = location.origin + (cur === 'en' ? '/en/' : '/');
       var done = function(){
-        shareBtn.textContent = S.shareDone;
-        shareBtn.classList.add('is-done');
+        shareBtn.classList.add('is-done');          /* 图标换成对勾，宽度不变 */
+        shareBtn.setAttribute('title', S.shareDone);
+        shareBtn.setAttribute('aria-label', S.shareDone);
         setTimeout(function(){
-          shareBtn.textContent = (STRINGS[cur] || STRINGS.zh).shareLabel;
+          var S2 = STRINGS[cur] || STRINGS.zh;
           shareBtn.classList.remove('is-done');
+          shareBtn.setAttribute('title', S2.shareTitle);
+          shareBtn.setAttribute('aria-label', S2.shareTitle);
         }, 1800);
       };
       /* 只有触屏设备才调系统分享面板（面板里有微信）；桌面一律复制链接，
@@ -1477,7 +1508,10 @@ var STRINGS = {
   if (sw){
     var bar2 = document.getElementById('chrome');
     if (bar2) bar2.classList.add('is-on');
-    sw.addEventListener('click', function(){ set(cur === 'en' ? 'zh' : 'en'); });
+    sw.addEventListener('click', function(e){
+      var b = e.target.closest ? e.target.closest('[data-lang]') : null;
+      if (b) set(b.getAttribute('data-lang'));
+    });
   }
   apply(resolve(), true);
 })();
