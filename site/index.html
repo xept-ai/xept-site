@@ -780,6 +780,8 @@ html[lang="en"] .qrs{display:none}
   cursor:pointer;
 }
 .langsw[data-on]{display:inline-flex}
+#sharebtn{right:calc(10px + 52px + env(safe-area-inset-right, 0px))}
+#sharebtn.is-done{color:var(--accent);border-color:var(--accent)}
 .langsw:hover,.langsw:focus-visible{color:var(--accent);border-color:var(--accent)}
 
 /* ---------- English fits ----------
@@ -827,6 +829,7 @@ html[lang="en"] .lead--open{max-width:68ch}
 <body>
 
 
+<button type="button" class="langsw mono" id="sharebtn" data-i18n="shareLabel" title="分享这个页面" aria-label="分享这个页面">分享</button>
 <button type="button" class="langsw mono" id="langsw" lang="zh-CN" title="切换到 English" aria-label="切换到 English">中文</button>
 
 <main>
@@ -1134,6 +1137,9 @@ var STRINGS = {
       { h: "开放平台",
         p: "Xept 支持自定义 skill，内置推荐了网上公认优秀的科研 skills。代码未来也会公开，欢迎一起维护。" },
     ],
+    shareLabel: "分享",
+    shareDone: "已复制",
+    shareTitle: "分享这个页面",
     qrWechatAlt: "微信群二维码",
     qrXhsAlt: "小红书二维码",
     contactHeading: "联系我们",
@@ -1237,6 +1243,9 @@ var STRINGS = {
       { h: "An open platform",
         p: "Xept runs your own skills, and ships with a recommended set of the research skills the community rates highly. The code will be public too, so you can help maintain it." },
     ],
+    shareLabel: "Share",
+    shareDone: "Copied",
+    shareTitle: "Share this page",
     qrWechatAlt: "WeChat group QR code",
     qrXhsAlt: "RedNote QR code",
     contactHeading: "Contact",
@@ -1306,6 +1315,11 @@ var STRINGS = {
     sw.setAttribute('aria-label', S.langAction);
     sw.setAttribute('title', S.langAction);
     sw.setAttribute('lang', lang === 'en' ? 'en' : 'zh-CN');
+    var sb = document.getElementById('sharebtn');
+    if (sb && S.shareTitle){
+      sb.setAttribute('title', S.shareTitle);
+      sb.setAttribute('aria-label', S.shareTitle);
+    }
   }
 
   /* the promoted platform reads "Download for X"; the other two are just names */
@@ -1402,6 +1416,41 @@ var STRINGS = {
     repaintDl: function(){ paintDl(STRINGS[cur] || STRINGS.zh); },
     onLang: function(fn){ if (typeof fn === 'function') listeners.push(fn); }
   };
+
+  /* 分享：能调系统分享面板就调（手机上面板里有微信），不能就复制链接。
+     微信的网页分享要公众号 JS-SDK，没有公众号就做不了"一键发微信"，复制粘贴是实际路径。 */
+  var shareBtn = document.getElementById('sharebtn');
+  if (shareBtn){
+    shareBtn.setAttribute('data-on', '');
+    shareBtn.addEventListener('click', function(){
+      var S = STRINGS[cur] || STRINGS.zh;
+      /* 分享的是该语言自己的地址，不是带 ?lang= 的那个 */
+      var url = location.origin + (cur === 'en' ? '/en/' : '/');
+      var done = function(){
+        shareBtn.textContent = S.shareDone;
+        shareBtn.classList.add('is-done');
+        setTimeout(function(){
+          shareBtn.textContent = (STRINGS[cur] || STRINGS.zh).shareLabel;
+          shareBtn.classList.remove('is-done');
+        }, 1800);
+      };
+      if (navigator.share){
+        navigator.share({ title: S.title, text: S.sub, url: url }).then(function(){}, function(){});
+        return;
+      }
+      var copy = navigator.clipboard && navigator.clipboard.writeText
+        ? navigator.clipboard.writeText(url) : Promise.reject();
+      copy.then(done, function(){
+        /* 剪贴板被拒：把地址选中，让人自己复制 */
+        var ta = document.createElement('input');
+        ta.value = url; ta.setAttribute('readonly','');
+        ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); done(); } catch(e){}
+        setTimeout(function(){ ta.remove(); }, 0);
+      });
+    });
+  }
 
   if (sw){
     sw.setAttribute('data-on', '');
